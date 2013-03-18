@@ -54,6 +54,13 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
+// Function displayError()
+// just display the error for the user
+void displayError(){
+	cout << "Wrong option!" << endl
+		 << "Type h for Help" << endl;
+}
+
 // Function switchOption()
 // Switch user to the right option
 void switchOption(char userOption){
@@ -91,7 +98,7 @@ void switchOption(char userOption){
 		return;
 		break;
 	default:
-		cout << "Error";		
+		displayError();
 		break;
 	}
 }
