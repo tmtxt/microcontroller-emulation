@@ -31,6 +31,8 @@ int main(int argc, char *argv[])
 		// Read user input
 		userOption = inputOption();
 
+		// Transform the 
+		
 		// Switch the user to the right option
 		switchOption(userOption);
 		
@@ -43,7 +45,7 @@ int main(int argc, char *argv[])
 // Function switchOption()
 // Switch user to the right option
 void switchOption(char userOption){
-	
+
 }
 
 // Function displayPrompt()
@@ -73,7 +75,7 @@ char inputOption(){
 		return errorCharacter;
 	} else {
 		// If its length is 1, return the first character
-		return inputOption.at(0);
+		return tolower(inputOption.at(0));
 	}
 	
 }
