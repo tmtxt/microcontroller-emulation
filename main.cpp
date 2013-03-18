@@ -79,7 +79,7 @@ void switchOption(char userOption){
 		cout << "Go";
 		break;
 	case optionHelp:
-		cout << "Help";
+		displayHelp();
 		break;
 	case optionLook:
 		cout << "Look";
@@ -101,6 +101,14 @@ void switchOption(char userOption){
 		displayError();
 		break;
 	}
+}
+
+// Function displayHelp()
+// Display the help for user
+void displayHelp(){
+	cout << "Help" << endl
+		 << "Connect c" << endl
+		 << "Display d" << endl;
 }
 
 // Function displayPrompt()

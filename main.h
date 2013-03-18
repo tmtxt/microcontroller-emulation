@@ -7,3 +7,4 @@ void displayPrompt();
 char inputOption();
 void switchOption(char);
 void displayError();
+void displayHelp();
