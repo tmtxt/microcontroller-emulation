@@ -9,7 +9,18 @@ using std::endl;
 using std::tolower;
 using std::string;
 
+// Some constants used for input option
 const char errorCharacter = '!';
+const char optionConnect = 'c';
+const char optionDisplay = 'd';
+const char optionExecute = 'e';
+const char optionGo = 'g';
+const char optionHelp = 'h';
+const char optionLook = 'l';
+const char optionModify = 'm';
+const char optionReset = 'r';
+const char optionStatus = 's';
+const char optionQuit = 'q';
 
 // Function main()
 // Main executable
@@ -31,10 +42,11 @@ int main(int argc, char *argv[])
 		// Read user input
 		userOption = inputOption();
 
-		// Transform the 
-		
 		// Switch the user to the right option
 		switchOption(userOption);
+
+		// Display a newline character, just for decoration
+		cout << endl;
 		
 	} while (userOption != 'q');
 	
@@ -45,7 +57,43 @@ int main(int argc, char *argv[])
 // Function switchOption()
 // Switch user to the right option
 void switchOption(char userOption){
-
+	// Check the userOption variable and the switch the user to the right function
+	switch (userOption){
+	case optionConnect:
+		cout << "Connect";
+		break;
+	case optionDisplay:
+		cout << "Display";
+		break;
+	case optionExecute:
+		cout << "Execute";
+		break;
+	case optionGo:
+		cout << "Go";
+		break;
+	case optionHelp:
+		cout << "Help";
+		break;
+	case optionLook:
+		cout << "Look";
+		break;
+	case optionModify:
+		cout << "Modify";
+		break;
+	case optionReset:
+		cout << "Reset";
+		break;
+	case optionStatus:
+		cout << "Status";
+		break;
+	case optionQuit:
+		// If user want to quit, simply just quit this function
+		return;
+		break;
+	default:
+		cout << "Error";		
+		break;
+	}
 }
 
 // Function displayPrompt()
