@@ -56,7 +56,7 @@ int main(int argc, char *argv[])
 
 // Function displayError()
 // just display the error for the user
-void displayError(){
+void optionErrorHandler(){
 	cout << "Wrong option!" << endl
 		 << "Type h for Help" << endl;
 }
@@ -79,7 +79,7 @@ void switchOption(char userOption){
 		cout << "Go";
 		break;
 	case optionHelp:
-		displayHelp();
+		optionHelpHandler();
 		break;
 	case optionLook:
 		cout << "Look";
@@ -98,14 +98,14 @@ void switchOption(char userOption){
 		return;
 		break;
 	default:
-		displayError();
+		optionErrorHandler();
 		break;
 	}
 }
 
-// Function displayHelp()
+// Function optionHelpHandler()
 // Display the help for user
-void displayHelp(){
+void optionHelpHandler(){
 	cout << "Help" << endl
 		 << "Connect c" << endl
 		 << "Display d" << endl;
