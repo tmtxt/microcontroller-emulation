@@ -3,8 +3,9 @@
 
 
 
-void displayPrompt();
+void displayApplicationPrompt();
 char inputOption();
 void switchOption(char);
+void displayConnectPrompt();
 void optionErrorHandler();
 void optionHelpHandler();

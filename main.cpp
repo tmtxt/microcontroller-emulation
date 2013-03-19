@@ -36,8 +36,8 @@ int main(int argc, char *argv[])
 	// Loop for user enter option until user enter 'q' or 'Q'
 	do
 	{
-		// Display the prompt
-		displayPrompt();
+		// Display the application prompt
+		displayApplicationPrompt();
 		
 		// Read user input
 		userOption = inputOption();
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-// Function displayError()
+// Function optionErrorHandler()
 // just display the error for the user
 void optionErrorHandler(){
 	cout << "Wrong option!" << endl
@@ -103,6 +103,12 @@ void switchOption(char userOption){
 	}
 }
 
+// Function displayConnectPrompt()
+// Display the prompt when user connect to a microcontroller
+void displayConnectPrompt(){
+	
+}
+
 // Function optionHelpHandler()
 // Display the help for user
 void optionHelpHandler(){
@@ -111,9 +117,9 @@ void optionHelpHandler(){
 		 << "Display d" << endl;
 }
 
-// Function displayPrompt()
-// Display the application promt ">"
-void displayPrompt(){
+// Function displayApplicationPrompt()
+// Display the application prompt ">"
+void displayApplicationPrompt(){
 	cout << ">" << " ";
 }
 
