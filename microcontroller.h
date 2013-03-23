@@ -1,7 +1,7 @@
 #ifndef MICROCONTROLLER_H_FLAG
 #define MICROCONTROLLER_H_FLAG
 
-namespace microcontroller {
+namespace mcontroller {
     class Microcontroller
 	{
 	private:
@@ -11,18 +11,33 @@ namespace microcontroller {
 
 		// microcontroller's memory, dynamically allocated
 		unsigned char* memory;
+
+		// the size of the memory (also the size of the memory array), measured
+		// in byte
+		int memorySize;
 		
 	public:
-		// reset the controller
-		void reset();
-
-		// execute the instruction coorecsponding to the opcode
-		void execute(int opcode);
-
 		// constructor
 		Microcontroller(){}
 
 		// destructor
+		
+
+		// getters
+		int getProgramCounter();
+		unsigned char* getMemory();
+		int getMemorySize();
+
+		// setters
+		void setProgramCounter(int);
+		
+		// reset the controller
+		void reset();
+
+		// execute the instruction coorecsponding to the opcode
+		void execute(int);
+
+
 	};
 }
 
