@@ -63,41 +63,7 @@ int main(int argc, char *argv[])
 		userOption = inputOption();
 
 		// Check the userOption variable and the switch the user to the right function
-		switch (userOption){
-		case optionConnect:
-			microcontroller = optionConnectHandler();
-			break;
-		case optionDisplay:
-			cout << "Display";
-			break;
-		case optionExecute:
-			cout << "Execute";
-			break;
-		case optionGo:
-			cout << "Go";
-			break;
-		case optionHelp:
-			optionHelpHandler();
-			break;
-		case optionLook:
-			cout << "Look";
-			break;
-		case optionModify:
-			cout << "Modify";
-			break;
-		case optionReset:
-			cout << "Reset";
-			break;
-		case optionStatus:
-			cout << "Status";
-			break;
-		case optionQuit:
-			// If user want to quit, simply do nothing
-			break;
-		default:
-			optionErrorHandler();
-			break;
-		}
+		switchOption(userOption, &microcontroller);
 
 		// Display a newline character, just for decoration
 		cout << endl;
@@ -123,8 +89,44 @@ void optionErrorHandler(){
 
 // Function switchOption()
 // Switch user to the right option
-void switchOption(char userOption){
+void switchOption(char userOption, Microcontroller** microcontroller){
 	
+	switch (userOption){
+	case optionConnect:
+		optionConnectHandler(microcontroller);
+		break;
+	case optionDisplay:
+		cout << "Display";
+		break;
+	case optionExecute:
+		cout << "Execute";
+		break;
+	case optionGo:
+		cout << "Go";
+		break;
+	case optionHelp:
+		optionHelpHandler();
+		break;
+	case optionLook:
+		cout << "Look";
+		break;
+	case optionModify:
+		cout << "Modify";
+		break;
+	case optionReset:
+		cout << "Reset";
+		break;
+	case optionStatus:
+		cout << "Status";
+		break;
+	case optionQuit:
+		// If user want to quit, simply just quit the function
+		return;
+		break;
+	default:
+		optionErrorHandler();
+		break;
+	}
 }
 
 // Function optionHelpHandler()
@@ -171,9 +173,10 @@ char inputOption(){
 // Handler for connect option
 // Display the prompt to ask user enter microcontroller type
 // and then connect to that microcontroller
-Microcontroller* optionConnectHandler(){
+void optionConnectHandler(Microcontroller** microcontroller){
 
-	Microcontroller* microcontroller = 0;
+	// first free memory for the existing microcontroller
+	delete *microcontroller;
 	
 	// display the prompt to ask user to enter microcontroller type
 	cout << "Enter the type of microcontroller to connect" << endl;
@@ -183,16 +186,15 @@ Microcontroller* optionConnectHandler(){
 	string inputMicrocontrollerType;
 	cin >> inputMicrocontrollerType;
 
-	// check whether the user input is valid
+	// check whether the user input is valid and then allocate new object
 	if(inputMicrocontrollerType == controllerTypeR500){
-		microcontroller = new MopsR500();
+		*microcontroller = new MopsR500();
 	} else if (inputMicrocontrollerType == controllerType34HC22){
-		microcontroller = new MacrochipPIC32F42();
+		*microcontroller = new MacrochipPIC32F42();
 	} else if (inputMicrocontrollerType == controllerTypePIC32F42) {
-		microcontroller = new Rotomola34HC22();
+		*microcontroller = new Rotomola34HC22();
 	} else {
-		
+		// display the error message
+		cout << "Invalid type";
 	}
-
-	return microcontroller;
 }
