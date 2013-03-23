@@ -5,8 +5,8 @@
 
 void displayApplicationPrompt();
 char inputOption();
-void switchOption(char, microcontroller::Microcontroller**);
+void switchOption(char, mcontroller::Microcontroller**);
 void displayConnectPrompt();
 void optionErrorHandler();
 void optionHelpHandler();
-void optionConnectHandler(microcontroller::Microcontroller**);
+void optionConnectHandler(mcontroller::Microcontroller**);

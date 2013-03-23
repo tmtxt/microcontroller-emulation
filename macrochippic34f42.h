@@ -2,7 +2,7 @@
 #define MACROCHIPPIC32F42_H_FLAG
 #include "microcontroller.h"
 
-namespace microcontroller {
+namespace mcontroller {
     class MacrochipPIC32F42 : public Microcontroller {
 	public:
 		MacrochipPIC32F42(){}

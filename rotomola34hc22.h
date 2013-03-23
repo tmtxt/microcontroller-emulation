@@ -3,7 +3,7 @@
 
 #include "microcontroller.h"
 
-namespace microcontroller {
+namespace mcontroller {
     class Rotomola34HC22 : public Microcontroller
 	{
 	public:

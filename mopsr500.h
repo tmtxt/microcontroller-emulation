@@ -3,7 +3,7 @@
 
 #include "microcontroller.h"
 
-namespace microcontroller {
+namespace mcontroller {
     class MopsR500 : public Microcontroller
 	{
 	public:

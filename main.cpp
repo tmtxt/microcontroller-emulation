@@ -34,7 +34,7 @@ const string controllerTypePIC32F42 = "PIC32F42";
 const string controllerType34HC22 = "34HC22";
 
 // Application namespace
-using namespace microcontroller;
+using namespace mcontroller;
 
 // Function main()
 // Main executable
