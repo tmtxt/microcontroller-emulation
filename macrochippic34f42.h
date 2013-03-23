@@ -8,6 +8,9 @@ namespace mcontroller {
 	public:
 		// constructor
 	MacrochipPIC32F42() : Microcontroller(1536){}
+
+		// reset microcontroller
+		void reset();
 	};
 }
 

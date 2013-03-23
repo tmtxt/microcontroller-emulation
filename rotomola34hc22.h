@@ -9,6 +9,9 @@ namespace mcontroller {
 	public:
 		// constructor
 	Rotomola34HC22() : Microcontroller(512){}
+
+		// reset the microcontroller
+		void reset();
 	};
 }
 

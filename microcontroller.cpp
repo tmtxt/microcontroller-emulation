@@ -10,6 +10,7 @@ namespace mcontroller {
 
 		// init the memory array
 		this->memory = new unsigned char[this->memorySize];
+
 	}
 
 	// Getters

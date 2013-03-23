@@ -10,6 +10,9 @@ namespace mcontroller {
 	public:
 		// constructor
 	MopsR500() : Microcontroller(1024){}
+
+		// reset the microcontroller
+		void reset();
 	};
 }
 

@@ -32,7 +32,7 @@ namespace mcontroller {
 		void setProgramCounter(int);
 		
 		// reset the controller
-		void reset();
+		virtual void reset() = 0;
 
 		// execute the instruction coorecsponding to the opcode
 		void execute(int);
