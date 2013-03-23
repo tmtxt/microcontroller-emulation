@@ -18,7 +18,7 @@ namespace mcontroller {
 		
 	public:
 		// constructor
-		Microcontroller(){}
+		Microcontroller(int);
 
 		// destructor
 		

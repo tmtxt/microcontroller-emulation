@@ -9,7 +9,7 @@ namespace mcontroller {
 	{
 	public:
 		// constructor
-		MopsR500();
+	MopsR500() : Microcontroller(1024){}
 	};
 }
 

@@ -7,7 +7,8 @@ namespace mcontroller {
     class Rotomola34HC22 : public Microcontroller
 	{
 	public:
-		Rotomola34HC22(){}
+		// constructor
+	Rotomola34HC22() : Microcontroller(512){}
 	};
 }
 

@@ -7,7 +7,7 @@ namespace mcontroller {
 		
 	public:
 		// constructor
-		MacrochipPIC32F42();
+	MacrochipPIC32F42() : Microcontroller(1536){}
 	};
 }
 

@@ -3,6 +3,15 @@
 // Implementation of the Microcontroller class
 namespace mcontroller {
 
+	// Constructor
+	Microcontroller::Microcontroller(int memorySize){
+		// init the memory size
+		this->memorySize = memorySize;
+
+		// init the memory array
+		this->memory = new unsigned char[this->memorySize];
+	}
+
 	// Getters
 	unsigned char* Microcontroller::getMemory(){
 		return memory;
