@@ -4,8 +4,10 @@
 
 namespace mcontroller {
     class MacrochipPIC32F42 : public Microcontroller {
+		
 	public:
-		MacrochipPIC32F42(){}
+		// constructor
+		MacrochipPIC32F42();
 	};
 }
 
