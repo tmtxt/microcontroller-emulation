@@ -2,8 +2,8 @@
 #include "main.h"
 #include "microcontroller.h"
 #include "mopsr500.h"
-#include "macrochippic34f42.h"
-#include "rotomola34hc22.h"
+#include "macrochippic32f42.h"
+#include "rotamola34hc22.h"
 
 using std::cout;
 using std::cin;
@@ -196,7 +196,7 @@ void optionConnectHandler(Microcontroller** microcontroller){
 		*microcontroller = new MacrochipPIC32F42();
 		cout << controllerTypePIC32F42 << " connected!\n";
 	} else if (inputMicrocontrollerType == controllerTypePIC32F42) {
-		*microcontroller = new Rotomola34HC22();
+		*microcontroller = new Rotamola34HC22();
 		cout << controllerType34HC22 << " connected!\n";
 	} else {
 		// display the error message

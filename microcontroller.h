@@ -37,6 +37,8 @@ namespace mcontroller {
 		// execute the instruction coorecsponding to the opcode
 		void execute(int);
 
+		// some other utility function
+		// init the values of memory array all to 0
 
 	};
 }
