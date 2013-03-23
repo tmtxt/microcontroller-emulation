@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
 
 	// The Microcontroller of the program
 	Microcontroller* microcontroller;
+
 	
 	// EXECUTION OF PROGRAM
 	
@@ -189,12 +190,15 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	// check whether the user input is valid and then allocate new object
 	if(inputMicrocontrollerType == controllerTypeR500){
 		*microcontroller = new MopsR500();
+		cout << controllerTypeR500 << " connected!\n";
 	} else if (inputMicrocontrollerType == controllerType34HC22){
 		*microcontroller = new MacrochipPIC32F42();
+		cout << controllerTypePIC32F42 << " connected!\n";
 	} else if (inputMicrocontrollerType == controllerTypePIC32F42) {
 		*microcontroller = new Rotomola34HC22();
+		cout << controllerType34HC22 << " connected!\n";
 	} else {
 		// display the error message
-		cout << "Invalid type";
+		cout << "Invalid type!\n";
 	}
 }
