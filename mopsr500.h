@@ -4,10 +4,12 @@
 #include "microcontroller.h"
 
 namespace mcontroller {
+	
     class MopsR500 : public Microcontroller
 	{
 	public:
-		MopsR500(){}
+		// constructor
+		MopsR500();
 	};
 }
 
