@@ -4,7 +4,7 @@
 namespace mcontroller {
     class Microcontroller
 	{
-	private:
+	protected:
 		// program counter: internal CPU register that point to the memory
 		// location that contains the next instruction
 		int programCounter;
