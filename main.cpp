@@ -191,6 +191,7 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	if(inputMicrocontrollerType == controllerTypeR500){
 		*microcontroller = new MopsR500();
 		cout << controllerTypeR500 << " connected!\n";
+		cout << (*microcontroller)->getMemorySize();
 	} else if (inputMicrocontrollerType == controllerType34HC22){
 		*microcontroller = new MacrochipPIC32F42();
 		cout << controllerTypePIC32F42 << " connected!\n";
