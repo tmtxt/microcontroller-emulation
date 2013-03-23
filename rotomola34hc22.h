@@ -1,10 +1,14 @@
+#ifndef ROTOMOLA34HC22_H_FLAG
+#define ROTOMOLA34HC22_H_FLAG
+
 #include "microcontroller.h"
 
 namespace microcontroller {
     class Rotomola34HC22 : public Microcontroller
 	{
 	public:
-		Rotomola34HC22();
-		virtual ~Rotomola34HC22();
+		Rotomola34HC22(){}
 	};
 }
+
+#endif

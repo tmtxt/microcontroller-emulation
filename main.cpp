@@ -1,5 +1,9 @@
 #include <iostream>
 #include "main.h"
+#include "microcontroller.h"
+#include "mopsr500.h"
+#include "macrochippic34f42.h"
+#include "rotomola34hc22.h"
 
 using std::cout;
 using std::cin;
@@ -8,6 +12,8 @@ using std::hex;
 using std::endl;
 using std::tolower;
 using std::string;
+
+
 
 // Some constants used for input option
 const char errorCharacter = '!';
@@ -22,16 +28,30 @@ const char optionReset = 'r';
 const char optionStatus = 's';
 const char optionQuit = 'q';
 
+// Some constants for microcontroller type
+const string controllerTypeR500 = "R500";
+const string controllerTypePIC32F42 = "PIC32F42";
+const string controllerType34HC22 = "34HC22";
+
+// Application namespace
+using namespace microcontroller;
+
 // Function main()
 // Main executable
 int main(int argc, char *argv[])
 {
 	// VARIABLES USED FOR THIS PROGRAM
+	
 	// userOption: stores the user option. The program must handle both
 	// upperand lowercase so that this variable will save only lowercase value.
 	// The program have to change it to lowercase before saving
 	char userOption;
 
+	// The Microcontroller of the program
+	Microcontroller* microcontroller;
+	
+	// EXECUTION OF PROGRAM
+	
 	// Start the program
 	// Loop for user enter option until user enter 'q' or 'Q'
 	do
@@ -42,8 +62,42 @@ int main(int argc, char *argv[])
 		// Read user input
 		userOption = inputOption();
 
-		// Switch the user to the right option
-		switchOption(userOption);
+		// Check the userOption variable and the switch the user to the right function
+		switch (userOption){
+		case optionConnect:
+			microcontroller = optionConnectHandler();
+			break;
+		case optionDisplay:
+			cout << "Display";
+			break;
+		case optionExecute:
+			cout << "Execute";
+			break;
+		case optionGo:
+			cout << "Go";
+			break;
+		case optionHelp:
+			optionHelpHandler();
+			break;
+		case optionLook:
+			cout << "Look";
+			break;
+		case optionModify:
+			cout << "Modify";
+			break;
+		case optionReset:
+			cout << "Reset";
+			break;
+		case optionStatus:
+			cout << "Status";
+			break;
+		case optionQuit:
+			// If user want to quit, simply do nothing
+			break;
+		default:
+			optionErrorHandler();
+			break;
+		}
 
 		// Display a newline character, just for decoration
 		cout << endl;
@@ -52,6 +106,12 @@ int main(int argc, char *argv[])
 	
 	// End the program
 	return 0;
+}
+
+// Function displayConnectPrompt()
+// Display the prompt when user connect to a microcontroller
+void displayConnectPrompt(){
+	cout << "type? ";
 }
 
 // Function optionErrorHandler()
@@ -64,48 +124,6 @@ void optionErrorHandler(){
 // Function switchOption()
 // Switch user to the right option
 void switchOption(char userOption){
-	// Check the userOption variable and the switch the user to the right function
-	switch (userOption){
-	case optionConnect:
-		cout << "Connect";
-		break;
-	case optionDisplay:
-		cout << "Display";
-		break;
-	case optionExecute:
-		cout << "Execute";
-		break;
-	case optionGo:
-		cout << "Go";
-		break;
-	case optionHelp:
-		optionHelpHandler();
-		break;
-	case optionLook:
-		cout << "Look";
-		break;
-	case optionModify:
-		cout << "Modify";
-		break;
-	case optionReset:
-		cout << "Reset";
-		break;
-	case optionStatus:
-		cout << "Status";
-		break;
-	case optionQuit:
-		// If user want to quit, simply just quit this function
-		return;
-		break;
-	default:
-		optionErrorHandler();
-		break;
-	}
-}
-
-// Function displayConnectPrompt()
-// Display the prompt when user connect to a microcontroller
-void displayConnectPrompt(){
 	
 }
 
@@ -147,4 +165,34 @@ char inputOption(){
 		return tolower(inputOption.at(0));
 	}
 	
+}
+
+// Function optionConnectHandler()
+// Handler for connect option
+// Display the prompt to ask user enter microcontroller type
+// and then connect to that microcontroller
+Microcontroller* optionConnectHandler(){
+
+	Microcontroller* microcontroller = 0;
+	
+	// display the prompt to ask user to enter microcontroller type
+	cout << "Enter the type of microcontroller to connect" << endl;
+	displayConnectPrompt();
+
+	// read the microcontroller type from user
+	string inputMicrocontrollerType;
+	cin >> inputMicrocontrollerType;
+
+	// check whether the user input is valid
+	if(inputMicrocontrollerType == controllerTypeR500){
+		microcontroller = new MopsR500();
+	} else if (inputMicrocontrollerType == controllerType34HC22){
+		microcontroller = new MacrochipPIC32F42();
+	} else if (inputMicrocontrollerType == controllerTypePIC32F42) {
+		microcontroller = new Rotomola34HC22();
+	} else {
+		
+	}
+
+	return microcontroller;
 }

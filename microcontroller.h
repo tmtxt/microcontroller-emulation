@@ -1,3 +1,6 @@
+#ifndef MICROCONTROLLER_H_FLAG
+#define MICROCONTROLLER_H_FLAG
+
 namespace microcontroller {
     class Microcontroller
 	{
@@ -14,12 +17,13 @@ namespace microcontroller {
 		void reset();
 
 		// execute the instruction coorecsponding to the opcode
-		void execute(int opcode)
+		void execute(int opcode);
 
 		// constructor
-		Microcontroller();
+		Microcontroller(){}
 
 		// destructor
-		virtual ~Microcontroller();
 	};
 }
+
+#endif
