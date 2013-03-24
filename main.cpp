@@ -13,8 +13,6 @@ using std::endl;
 using std::tolower;
 using std::string;
 
-
-
 // Some constants used for input option
 const char errorCharacter = '!';
 const char optionConnect = 'c';
@@ -81,6 +79,12 @@ void displayConnectPrompt(){
 	cout << "type? ";
 }
 
+// Function displayLocationPrompt()
+// Display the prompt location
+void displayLocationPrompt(){
+	cout << "location? ";
+}
+
 // Function optionErrorHandler()
 // just display the error for the user
 void optionErrorHandler(){
@@ -109,7 +113,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionHelpHandler();
 		break;
 	case optionLook:
-		cout << "Look";
+		optionLookAtMemoryHandler(microcontroller);
 		break;
 	case optionModify:
 		cout << "Modify";
@@ -206,4 +210,36 @@ void optionConnectHandler(Microcontroller** microcontroller){
 // Reset the comtroller, simply just call the reset method of the input micrcontroller
 void optionResetHandler(mcontroller::Microcontroller** microcontroller){
 	(*microcontroller)->reset();
+}
+
+// Function optionLookAtMemoryHandler()
+// Ask the user to input an address and output the value at that address
+void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
+	
+	// Init variables here
+	// The input location
+	int location;
+
+	// Display the prompt
+	displayLocationPrompt();
+
+	// Read the location from user and ensure that user enter an int
+	while(!(cin >> location)){
+		cerr << "Please input a valid integer!" << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		displayLocationPrompt();
+	}
+
+	// Validate that the location is out of memory array index
+	if((location < 0) || (location >= (*microcontroller)->getMemorySize())){
+		// Display the error for user
+		cerr << "Invalid address!" << endl;
+	} else {
+		// Address valid, print the value of the address
+		int value = ((*microcontroller)->getMemory())[location];
+		cout << "Value at location " << location << " is ";
+		cout << hex << value << endl;
+	}
+	
 }

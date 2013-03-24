@@ -4,10 +4,14 @@
 #include "microcontroller.h"
 
 void displayApplicationPrompt();
+void displayConnectPrompt();
+void displayLocationPrompt();
+
 char inputOption();
 void switchOption(char, mcontroller::Microcontroller**);
-void displayConnectPrompt();
+
 void optionErrorHandler();
 void optionHelpHandler();
 void optionConnectHandler(mcontroller::Microcontroller**);
 void optionResetHandler(mcontroller::Microcontroller**);
+void optionLookAtMemoryHandler(mcontroller::Microcontroller**);

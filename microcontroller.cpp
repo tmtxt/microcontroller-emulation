@@ -37,5 +37,10 @@ namespace mcontroller {
 			this->memory[i] = initialValue;
 		}
 	}
+
+	// get the value at the input address location
+	unsigned char Microcontroller::getMemoryValueAtLocation(int location){
+		return (this->getMemory())[location];
+	}
 	
 }
