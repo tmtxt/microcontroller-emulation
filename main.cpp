@@ -191,11 +191,10 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	if(inputMicrocontrollerType == controllerTypeR500){
 		*microcontroller = new MopsR500();
 		cout << controllerTypeR500 << " connected!\n";
-		cout << (*microcontroller)->getMemorySize();
-	} else if (inputMicrocontrollerType == controllerType34HC22){
+	} else if (inputMicrocontrollerType == controllerTypePIC32F42){
 		*microcontroller = new MacrochipPIC32F42();
 		cout << controllerTypePIC32F42 << " connected!\n";
-	} else if (inputMicrocontrollerType == controllerTypePIC32F42) {
+	} else if (inputMicrocontrollerType == controllerType34HC22) {
 		*microcontroller = new Rotamola34HC22();
 		cout << controllerType34HC22 << " connected!\n";
 	} else {
@@ -203,3 +202,4 @@ void optionConnectHandler(Microcontroller** microcontroller){
 		cout << "Invalid type!\n";
 	}
 }
+
