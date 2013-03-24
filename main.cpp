@@ -115,7 +115,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		cout << "Modify";
 		break;
 	case optionReset:
-		cout << "Reset";
+		optionResetHandler(microcontroller);
 		break;
 	case optionStatus:
 		cout << "Status";
@@ -201,3 +201,9 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	}
 }
 
+// Function optionResetHandler()
+// Handle reset option
+// Reset the comtroller, simply just call the reset method of the input micrcontroller
+void optionResetHandler(mcontroller::Microcontroller** microcontroller){
+	(*microcontroller)->reset();
+}

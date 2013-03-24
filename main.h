@@ -10,3 +10,4 @@ void displayConnectPrompt();
 void optionErrorHandler();
 void optionHelpHandler();
 void optionConnectHandler(mcontroller::Microcontroller**);
+void optionResetHandler(mcontroller::Microcontroller**);
