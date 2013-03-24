@@ -43,8 +43,12 @@ namespace mcontroller {
 		void execute(int);
 
 		// some other utility functions
+		
 		// get the value at the input address location
 		unsigned char getMemoryValueAtLocation(int);
+
+		// set the value at the input address location
+		void setMemoryValueAtLocation(int, unsigned char);
 
 	};
 }
