@@ -6,12 +6,25 @@
 namespace mcontroller {
     class Rotamola34HC22 : public Microcontroller
 	{
+	private:
+		// Special Purpose byte-sized registers called A and B
+		unsigned char a;
+		unsigned char b;
+		
 	public:
 		// constructor
 		Rotamola34HC22();
 
 		// reset the microcontroller
 		void reset();
+
+		// Getters
+		unsigned char getA();
+		unsigned char getB();
+
+		// Setters
+		void setA(unsigned char);
+		void setB(unsigned char);
 	};
 }
 

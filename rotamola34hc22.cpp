@@ -13,5 +13,23 @@ namespace mcontroller {
 	void Rotamola34HC22::reset(){
 		
 	}
+
+	// Getters
+	unsigned char Rotamola34HC22::getA(){
+		return this->a;
+	}
+
+	unsigned char Rotamola34HC22::getB(){
+		return this->b;
+	}
+
+	// Setters
+	void Rotamola34HC22::setA(unsigned char a){
+		this->a = a;
+	}
 	
+	void Rotamola34HC22::setB(unsigned char b){
+		this->b = b;
+	}
+
 }
