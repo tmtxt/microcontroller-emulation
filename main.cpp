@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+
 #include "main.h"
 #include "microcontroller.h"
 #include "mopsr500.h"
@@ -104,7 +106,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionConnectHandler(microcontroller);
 		break;
 	case optionDisplay:
-		cout << "Display";
+		optionDisplayAllMemoryHandler(microcontroller);
 		break;
 	case optionExecute:
 		cout << "Execute";
@@ -305,4 +307,40 @@ void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 		cin.clear();
 		cin.ignore(1000, '\n');
 	}
+}
+
+// handler for the display all memory option
+void optionDisplayAllMemoryHandler(mcontroller::Microcontroller** microcontroller){
+
+	// the memory array
+	unsigned char* memory = (*microcontroller)->getMemory();
+
+	// the memory size
+	int memorySize = (*microcontroller)->getMemorySize();
+
+	// loop through the memory array and display
+	for (int i = 0; i < memorySize; ++i)
+	{
+		// special case: add new line and print the left-most value
+		if((i % 16) == 0){
+			cout << endl;
+			cout << std::setfill('0') << std::setw(4);
+			cout << hex << i;
+			cin.clear();
+		}
+
+		// special case: current column is column 8, print one more extra space
+		if((i % 8) == 0){
+			cout << " ";
+		}
+
+		// normal case: print the value in that memory address
+		cout << " ";
+		cout << std::setfill('0') << std::setw(2);
+		int value = memory[i];
+		cout << hex << value;
+		cin.clear();
+	}
+
+	cout << endl;
 }
