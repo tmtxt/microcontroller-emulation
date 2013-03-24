@@ -15,6 +15,11 @@ namespace mcontroller {
 		// the size of the memory (also the size of the memory array), measured
 		// in byte
 		int memorySize;
+
+		// some other utility functions
+		
+		// init the values of memory array all to the input value
+		void initMemory(int);
 		
 	public:
 		// constructor
@@ -37,8 +42,8 @@ namespace mcontroller {
 		// execute the instruction coorecsponding to the opcode
 		void execute(int);
 
-		// some other utility function
-		// init the values of memory array all to 0
+		// some other utility functions
+
 
 	};
 }

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "microcontroller.h"
 
 // Implementation of the Microcontroller class
@@ -9,8 +10,8 @@ namespace mcontroller {
 		this->memorySize = memorySize;
 
 		// init the memory array
-		this->memory = new unsigned char[this->memorySize];
-
+		this->memory = new unsigned char [this->memorySize];
+		initMemory(0);
 	}
 
 	// Getters
@@ -27,6 +28,16 @@ namespace mcontroller {
 	// Setters
 	void Microcontroller::setProgramCounter(int location){
 		programCounter = location;
+	}
+
+	// init the values of memory array all to the input value
+	void Microcontroller::initMemory(int initialValue){
+		int i;
+		
+		// loop through the memory and init all value to initialValue
+		for(i = 0; i < memorySize; i++){
+			memory[i] = initialValue;
+		}
 	}
 	
 }
