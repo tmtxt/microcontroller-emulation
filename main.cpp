@@ -119,7 +119,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionLookAtMemoryHandler(microcontroller);
 		break;
 	case optionModify:
-		cout << "Modify";
+		optionModifyMemoryHandler(microcontroller);
 		break;
 	case optionReset:
 		optionResetHandler(microcontroller);
@@ -228,7 +228,7 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	// check if the input location is valid
 	if(location != memoryLocationInvalid){
 		// print out the value at the memory address
-		int value = (*microcontroller)->getMemoryValueAtLocation(location);
+		unsigned int value = (*microcontroller)->getMemoryValueAtLocation(location);
 		cout << "The value at location " << location << " is: ";
 		cout << hex << value;
 		cout << endl;
@@ -266,4 +266,43 @@ int lookUpMemoryAddress(mcontroller::Microcontroller** microcontroller){
 	}
 }
 
+// Handler for Modify Memory option
+void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 
+	// The input memory address
+	int location;
+
+	// input address from user
+	location = lookUpMemoryAddress(microcontroller);
+
+	// check if the location is valid
+	if(location != memoryLocationInvalid){
+		// print the old value
+		unsigned int oldValue = (*microcontroller)->getMemoryValueAtLocation(location);
+		cout << "Old value: ";
+		cout << hex << oldValue;
+		cout << endl;
+
+		// print the new prompt
+		cout << "new? ";
+
+		// read the input value from user
+		unsigned int inputNewValue;
+		// validate input
+		while(!(cin >> hex >> inputNewValue)){
+			cerr << "Please input a valid hexadecimal integer!" << endl;
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "news? ";
+		}
+
+		// As each memory location is a byte size (unsigned char), only the
+		// lower 8 bits of input should be stored.
+		unsigned char newValue = (inputNewValue & 0xFF);
+		(*microcontroller)->setMemoryValueAtLocation(location, newValue);
+
+		// clear the cin
+		cin.clear();
+		cin.ignore(1000, '\n');
+	}
+}

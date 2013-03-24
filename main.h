@@ -6,7 +6,6 @@
 void displayApplicationPrompt();
 void displayConnectPrompt();
 void displayLocationPrompt();
-void displayNewPrompt();
 
 char inputOption();
 void switchOption(char, mcontroller::Microcontroller**);
@@ -17,3 +16,4 @@ void optionHelpHandler();
 void optionConnectHandler(mcontroller::Microcontroller**);
 void optionResetHandler(mcontroller::Microcontroller**);
 void optionLookAtMemoryHandler(mcontroller::Microcontroller**);
+void optionModifyMemoryHandler(mcontroller::Microcontroller**);
