@@ -24,12 +24,12 @@ namespace mcontroller {
 	}
 
 	// Getters
-	char MacrochipPIC32F42::getW(){
+	unsigned char MacrochipPIC32F42::getW(){
 		return this->w;
 	}
 
 	// Setters
-	void MacrochipPIC32F42::setW(char w){
+	void MacrochipPIC32F42::setW(unsigned char w){
 		this->w = w;
 	}
 	
