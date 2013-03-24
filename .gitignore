@@ -1,0 +1,4 @@
+*.o
+main.dSYM/*
+main.o.dSYM/*
+main
