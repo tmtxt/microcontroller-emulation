@@ -7,7 +7,7 @@ namespace mcontroller {
 	protected:
 		// program counter: internal CPU register that point to the memory
 		// location that contains the next instruction
-		int programCounter;
+		unsigned char* programCounter;
 
 		// microcontroller's memory, dynamically allocated
 		unsigned char* memory;
@@ -29,12 +29,12 @@ namespace mcontroller {
 		
 
 		// getters
-		int getProgramCounter();
+		unsigned char* getProgramCounter();
 		unsigned char* getMemory();
 		int getMemorySize();
 
 		// setters
-		void setProgramCounter(int);
+		void setProgramCounter(unsigned char*);
 		
 		// reset the controller
 		virtual void reset() = 0;

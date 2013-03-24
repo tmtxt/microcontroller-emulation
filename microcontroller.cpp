@@ -11,32 +11,30 @@ namespace mcontroller {
 
 		// init the memory array
 		this->memory = new unsigned char [this->memorySize];
-		initMemory(0);
+		this->initMemory(0);
 	}
 
 	// Getters
 	unsigned char* Microcontroller::getMemory(){
-		return memory;
+		return this->memory;
 	}
 	int Microcontroller::getMemorySize(){
-		return memorySize;
+		return this->memorySize;
 	}
-	int Microcontroller::getProgramCounter(){
-		return programCounter;
+	unsigned char* Microcontroller::getProgramCounter(){
+		return this->programCounter;
 	}
 
 	// Setters
-	void Microcontroller::setProgramCounter(int location){
-		programCounter = location;
+	void Microcontroller::setProgramCounter(unsigned char* programCounter){
+		this->programCounter = programCounter;
 	}
 
 	// init the values of memory array all to the input value
 	void Microcontroller::initMemory(int initialValue){
-		int i;
-		
 		// loop through the memory and init all value to initialValue
-		for(i = 0; i < memorySize; i++){
-			memory[i] = initialValue;
+		for(int i = 0; i < this->memorySize; i++){
+			this->memory[i] = initialValue;
 		}
 	}
 	
