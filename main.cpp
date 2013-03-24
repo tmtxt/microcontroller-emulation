@@ -190,7 +190,6 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	// check whether the user input is valid and then allocate new object
 	if(inputMicrocontrollerType == controllerTypeR500){
 		*microcontroller = new MopsR500();
-		cout << controllerTypeR500 << " connected!\n";
 	} else if (inputMicrocontrollerType == controllerTypePIC32F42){
 		*microcontroller = new MacrochipPIC32F42();
 		cout << controllerTypePIC32F42 << " connected!\n";
