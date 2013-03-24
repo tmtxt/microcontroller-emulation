@@ -6,9 +6,11 @@
 void displayApplicationPrompt();
 void displayConnectPrompt();
 void displayLocationPrompt();
+void displayNewPrompt();
 
 char inputOption();
 void switchOption(char, mcontroller::Microcontroller**);
+int lookUpMemoryAddress(mcontroller::Microcontroller**);
 
 void optionErrorHandler();
 void optionHelpHandler();

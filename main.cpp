@@ -31,6 +31,9 @@ const string controllerTypeR500 = "R500";
 const string controllerTypePIC32F42 = "PIC32F42";
 const string controllerType34HC22 = "34HC22";
 
+// Other constants
+const int memoryLocationInvalid = -1;
+
 // Application namespace
 using namespace mcontroller;
 
@@ -215,7 +218,28 @@ void optionResetHandler(mcontroller::Microcontroller** microcontroller){
 // Function optionLookAtMemoryHandler()
 // Ask the user to input an address and output the value at that address
 void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
+
+	// the memory location the user input
+	int location;
 	
+	// input memory location
+	location = lookUpMemoryAddress(microcontroller);
+
+	// check if the input location is valid
+	if(location != memoryLocationInvalid){
+		// print out the value at the memory address
+		int value = (*microcontroller)->getMemoryValueAtLocation(location);
+		cout << "The value at location " << location << " is: ";
+		cout << hex << value;
+		cout << endl;
+	}
+}
+
+// ask user to input a memory location and then return the memory
+// location if that address is exist, otherwise, print the message to cerr and
+// the return memoryLocationInvalid
+int lookUpMemoryAddress(mcontroller::Microcontroller** microcontroller){
+
 	// Init variables here
 	// The input location
 	int location;
@@ -235,11 +259,11 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	if((location < 0) || (location >= (*microcontroller)->getMemorySize())){
 		// Display the error for user
 		cerr << "Invalid address!" << endl;
+		return memoryLocationInvalid;
 	} else {
-		// Address valid, print the value of the address
-		int value = ((*microcontroller)->getMemory())[location];
-		cout << "Value at location " << location << " is ";
-		cout << hex << value << endl;
+		// Address valid, return the address location
+		return location;
 	}
-	
 }
+
+
