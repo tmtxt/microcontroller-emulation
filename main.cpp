@@ -192,7 +192,6 @@ void optionConnectHandler(Microcontroller** microcontroller){
 		*microcontroller = new MopsR500();
 	} else if (inputMicrocontrollerType == controllerTypePIC32F42){
 		*microcontroller = new MacrochipPIC32F42();
-		cout << controllerTypePIC32F42 << " connected!\n";
 	} else if (inputMicrocontrollerType == controllerType34HC22) {
 		*microcontroller = new Rotamola34HC22();
 		cout << controllerType34HC22 << " connected!\n";
