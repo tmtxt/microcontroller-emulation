@@ -318,23 +318,9 @@ void optionDisplayAllMemoryHandler(mcontroller::Microcontroller** microcontrolle
 
 // handler for execute option
 void optionExecuteHandler(mcontroller::Microcontroller** microcontroller){
-	int inputOpcode;
-
-	// input opcode
-	cout << "opcode? ";
-	// validate input
-	while(!(cin >> hex >> inputOpcode)){
-		cerr << "Please input a valid hexadecimal integer!" << endl;
-		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << "news? ";
-	}
-	// clear the cin stream
-	cin.clear();
-	cin.ignore(1000, '\n');
 
 	// execute the opcode
-	(*microcontroller)->execute(inputOpcode);
+	(*microcontroller)->execute();
 	
 }
 
@@ -344,22 +330,8 @@ void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller** mic
 	// input location from user
 	int location = (*microcontroller)->inputHexadecimal("location? ");
 
-	// input opcode
-	int inputOpcode;
-	cout << "opcode? ";
-	// validate input
-	while(!(cin >> hex >> inputOpcode)){
-		cerr << "Please input a valid hexadecimal integer!" << endl;
-		cin.clear();
-		cin.ignore(1000, '\n');
-		cout << "news? ";
-	}
-	// clear the cin stream
-	cin.clear();
-	cin.ignore(1000, '\n');
-
 	// execute the opcode from location
-	(*microcontroller)->executeFromLocation(inputOpcode, location);
+	(*microcontroller)->executeFromLocation(location);
 }
 
 // This function will query and display microcontroller status.

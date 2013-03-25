@@ -34,12 +34,13 @@ namespace mcontroller {
 	}
 
 	// execute the instruction coorecsponding to the opcode
-	void MopsR500::execute(unsigned char opcode){
-		this->executeFromLocation(opcode, this->getProgramCounter());
+	void MopsR500::execute(){
+		this->executeFromLocation(this->getProgramCounter());
 	}
 
 	// execute from a specific location in memory
-	void MopsR500::executeFromLocation(unsigned char opcode, int address){
+	void MopsR500::executeFromLocation(int address){
+		unsigned char opcode = this->getMemoryValueAtLocation(address);
 		switch(opcode){
 			
 		case 0x0A:				// add value to memory
@@ -80,25 +81,20 @@ namespace mcontroller {
 	// the fourth byte after the opcode.
 	void MopsR500::executeAddValueToMemory(int address){
 
-		// input value from user
-		int inputValue = this->inputHexadecimal("value? ");
-
-		// get only the 8bit lower bytes of the input to put the memory
-		unsigned char valueToAdd = (inputValue & 0xFF);
-
-		// add the value into the next byte after the opcode
-		this->setMemoryValueAtLocation(address + 1,
-									   this->getMemoryValueAtLocation(address + 1) + valueToAdd);
-		
+		// get the value to add
+		unsigned char valueToAdd = this->getMemoryValueAtLocation(address + 1);
 
 		// get the low and high byte of the address
-		unsigned char addressLowByte = (address & 0xFF);
-		unsigned char addressHighByte = ((address >> 8) & 0xFF);
+		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
 
-		// put the low and high byte of the address to memory
-		this->setMemoryValueAtLocation(address + 3, addressLowByte);
-		this->setMemoryValueAtLocation(address + 2, addressHighByte);
+		// compute the destination address from the high and low byte of address
+		int destinationAddress = (addressHighByte << 8) | addressLowByte;
 
+		// add the valueToAdd to destination
+		this->setMemoryValueAtLocation(destinationAddress,
+									   this->getMemoryValueAtLocation(destinationAddress) + valueToAdd);
+		
 		// move the program counter to the fourth byte after the opcode
 		this->setProgramCounter(address + 4);
 		
@@ -110,23 +106,19 @@ namespace mcontroller {
 	// function. The value should be subtracted from the memory this time.
 	void MopsR500::executeSubtractValueFromMemory(int address){
 
-		// input value from user
-		int inputValue = this->inputHexadecimal("value? ");
-
-		// get only the 8bit lower btes of the input to subtract from memory
-		unsigned char valueToSubtract = (inputValue & 0xFF);
-
-		// subtract value from the next byte after the opcode
-		this->setMemoryValueAtLocation(address + 1,
-									   this->getMemoryValueAtLocation(address + 1) - valueToSubtract);
+		// get the value to subtract
+		unsigned char valueToSubtract = this->getMemoryValueAtLocation(address + 1);
 
 		// get the low and high byte of the address
-		unsigned char addressLowByte = (address & 0xFF);
-		unsigned char addressHighByte = ((address >> 8) & 0xFF);
+		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
 
-		// put the low and high byte of the address to memory
-		this->setMemoryValueAtLocation(address + 3, addressLowByte);
-		this->setMemoryValueAtLocation(address + 2, addressHighByte);
+		// compute the destination address from the high and low byte of address
+		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+		// subtract the valueToSubtract from destination
+		this->setMemoryValueAtLocation(destinationAddress,
+									   this->getMemoryValueAtLocation(destinationAddress) - valueToSubtract);
 
 		// move the program counter to the fourth byte after the opcode
 		this->setProgramCounter(address + 4);

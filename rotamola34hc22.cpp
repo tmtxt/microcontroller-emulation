@@ -33,12 +33,12 @@ namespace mcontroller {
 	}
 
 	// execute the instruction coorecsponding to the opcode
-	void Rotamola34HC22::execute(unsigned char opcode){
+	void Rotamola34HC22::execute(){
 		
 	}
 
 	// execute from a specific location in memory
-	void Rotamola34HC22::executeFromLocation(unsigned char opcode, int address){
+	void Rotamola34HC22::executeFromLocation(int address){
 		
 	}
 
