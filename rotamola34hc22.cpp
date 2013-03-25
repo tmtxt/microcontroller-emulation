@@ -11,6 +11,9 @@ namespace mcontroller {
 
 	// Constructor
 	Rotamola34HC22::Rotamola34HC22() : Microcontroller(512){
+		// print the message for user
+		cout << "34HC22 connected!" << endl;
+		
 		// After init the memory, reset the microcontroller
 		reset();
 	}
@@ -22,7 +25,12 @@ namespace mcontroller {
 
 	// reset the microcontroller
 	void Rotamola34HC22::reset(){
+		// 
 		this->setProgramCounter(509);
+
+		// Response to the user that the controller is reset
+		std::cout << "Micrcontroller reset!" << std::endl;
+		
 	}
 
 	// Getters
