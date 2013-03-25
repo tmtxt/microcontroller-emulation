@@ -31,8 +31,11 @@ namespace mcontroller {
 		// function to create microcontroller
 		Microcontroller* createMicrocontroller(string);
 
-		// function to get all available microcontroller
-		set<string> getAvailableMicrocontrollers();
+		// function to get a set of all available microcontroller
+		set<string> getAvailableMicrocontrollersSet();
+
+		// function to get a string of all available microcontroller
+		string getAvailableMicrocontrollersString();
 
 	private:
 		// function to add more microcontroller

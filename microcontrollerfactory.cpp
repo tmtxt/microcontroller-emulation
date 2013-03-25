@@ -19,6 +19,7 @@
 using std::pair;
 using std::cerr;
 using std::endl;
+using std::string;
 
 // Implementation for MicrocontrollerFactory class
 namespace mcontroller {
@@ -51,7 +52,11 @@ namespace mcontroller {
 		// check if the create function is exist
 		if(this->createFunctionMap.find(name) == this->createFunctionMap.end()){
 			// not exist
+			// notify user
 			cerr << "Invalid Type!" << endl;
+			cerr << "Valid types of Microcontroller are "
+				 << this->getAvailableMicrocontrollersString()
+				 << endl;
 			return 0;
 		} else {
 			// exist
@@ -59,6 +64,41 @@ namespace mcontroller {
 			createFunction* createFn = this->createFunctionMap[name];			
 			return createFn();
 		}
+	}
+
+	// function to get all available microcontroller
+	set<string> MicrocontrollerFactory::getAvailableMicrocontrollersSet(){
+		// get the iterator
+		map<string, createFunction*>::iterator it;
+
+		// the return set
+		set<string> microcontrollerSet;
+
+		// iterate through the map
+		for (it = this->createFunctionMap.begin(); it != this->createFunctionMap.end(); ++it){
+			// insert the key to the set
+			microcontrollerSet.insert(it->first);
+		}
+
+		return microcontrollerSet;
+	}
+
+	// function to get a string of all available microcontroller
+	string MicrocontrollerFactory::getAvailableMicrocontrollersString(){
+		// get the iterator
+		map<string, createFunction*>::iterator it;
+
+		// the return string
+		string microcontrollerString;
+
+		// iterate through the map
+		for (it = this->createFunctionMap.begin(); it != this->createFunctionMap.end(); ++it){
+			// get the key and then append to the string
+			microcontrollerString.append(it->first);
+			microcontrollerString.append(" ");
+		}
+
+		return microcontrollerString;
 	}
 }
 
