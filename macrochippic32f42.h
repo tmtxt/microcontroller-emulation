@@ -26,6 +26,15 @@ namespace mcontroller {
 
 		// execute from a specific location in memory
 		void executeFromLocation(int);
+
+		// execute functions
+		void executeMoveValueToW(int);
+		void executeMoveWToMemory(int);
+		void executeAddValueToW(int);
+		void executeSubtractValueFromW(int);
+		void executeGoToAddress(int);
+		void executeBranchIfNotEqual(int);
+		void executeHalt(int);
 	};
 }
 
