@@ -32,4 +32,9 @@ namespace mcontroller {
 		this->b = b;
 	}
 
+	// execute the instruction coorecsponding to the opcode
+	void Rotamola34HC22::execute(int opcode){
+		
+	}
+
 }

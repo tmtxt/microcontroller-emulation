@@ -20,6 +20,9 @@ namespace mcontroller {
 
 		// reset microcontroller
 		void reset();
+
+		// execute the instruction coorecsponding to the opcode
+		void execute(int);
 	};
 }
 

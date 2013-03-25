@@ -27,5 +27,10 @@ namespace mcontroller {
 		// Response to the user that the controller is reset
 		std::cout << "Micrcontroller reset!" << std::endl;
 	}
+
+	// execute the instruction coorecsponding to the opcode
+	void MopsR500::execute(int opcode){
+		
+	}
 	
 }

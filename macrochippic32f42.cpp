@@ -32,5 +32,10 @@ namespace mcontroller {
 	void MacrochipPIC32F42::setW(unsigned char w){
 		this->w = w;
 	}
+
+	// execute the instruction coorecsponding to the opcode
+	void MacrochipPIC32F42::execute(int opcode){
+		
+	}
 	
 }

@@ -25,6 +25,9 @@ namespace mcontroller {
 		// Setters
 		void setA(unsigned char);
 		void setB(unsigned char);
+
+		// execute the instruction coorecsponding to the opcode
+		void execute(int);
 	};
 }
 

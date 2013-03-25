@@ -11,6 +11,9 @@ namespace mcontroller {
 		// constructor
 		MopsR500();
 
+		// execute the instruction coorecsponding to the opcode
+		void execute(int);
+
 		// reset the microcontroller
 		void reset();
 	};

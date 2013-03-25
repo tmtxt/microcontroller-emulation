@@ -40,7 +40,7 @@ namespace mcontroller {
 		virtual void reset() = 0;
 
 		// execute the instruction coorecsponding to the opcode
-		void execute(int);
+		virtual void execute(int) = 0;
 
 		// some other utility functions
 		
