@@ -44,7 +44,10 @@ namespace mcontroller {
 		virtual void reset() = 0;
 
 		// execute the instruction coorecsponding to the opcode
-		virtual void execute(int) = 0;
+		virtual void execute(unsigned char) = 0;
+
+		// execute from specific location
+		virtual void executeFromLocation(unsigned char, int) = 0;
 
 		// some other utility functions
 		

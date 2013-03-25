@@ -12,10 +12,10 @@ namespace mcontroller {
 		MopsR500();
 
 		// execute the instruction coorecsponding to the opcode
-		void execute(int);
+		void execute(unsigned char);
 
 		// execute from a specific location in memory
-		void executeFromLocation(int, int);
+		void executeFromLocation(unsigned char, int);
 
 		// functions to execute opcode
 		void executeAddValueToMemory(int);

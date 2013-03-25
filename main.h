@@ -18,4 +18,4 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller**);
 void optionModifyMemoryHandler(mcontroller::Microcontroller**);
 void optionDisplayAllMemoryHandler(mcontroller::Microcontroller**);
 void optionExecuteHandler(mcontroller::Microcontroller**);
-
+void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller**);

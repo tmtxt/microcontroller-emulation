@@ -34,7 +34,12 @@ namespace mcontroller {
 	}
 
 	// execute the instruction coorecsponding to the opcode
-	void MacrochipPIC32F42::execute(int opcode){
+	void MacrochipPIC32F42::execute(unsigned char opcode){
+		
+	}
+
+	// execute from a specific location in memory
+	void MacrochipPIC32F42::executeFromLocation(unsigned char opcode, int address){
 		
 	}
 	

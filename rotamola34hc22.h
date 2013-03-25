@@ -27,7 +27,10 @@ namespace mcontroller {
 		void setB(unsigned char);
 
 		// execute the instruction coorecsponding to the opcode
-		void execute(int);
+		void execute(unsigned char);
+
+		// execute from a specific location in memory
+		void executeFromLocation(unsigned char, int);		
 	};
 }
 

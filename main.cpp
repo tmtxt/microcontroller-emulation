@@ -112,7 +112,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionExecuteHandler(microcontroller);
 		break;
 	case optionGo:
-		cout << "Go";
+		optionExecuteFromSpecificLocationHandler(microcontroller);
 		break;
 	case optionHelp:
 		optionHelpHandler();
@@ -316,8 +316,9 @@ void optionDisplayAllMemoryHandler(mcontroller::Microcontroller** microcontrolle
 	cout << endl;
 }
 
+// handler for execute option
 void optionExecuteHandler(mcontroller::Microcontroller** microcontroller){
-	unsigned int inputOpcode;
+	int inputOpcode;
 
 	// input opcode
 	cout << "opcode? ";
@@ -332,6 +333,32 @@ void optionExecuteHandler(mcontroller::Microcontroller** microcontroller){
 	cin.clear();
 	cin.ignore(1000, '\n');
 
+	// execute the opcode
 	(*microcontroller)->execute(inputOpcode);
 	
 }
+
+// handler for execute from point option
+void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller** microcontroller){
+
+	// input location from user
+	int location = (*microcontroller)->inputHexadecimal("location? ");
+
+	// input opcode
+	int inputOpcode;
+	cout << "opcode? ";
+	// validate input
+	while(!(cin >> hex >> inputOpcode)){
+		cerr << "Please input a valid hexadecimal integer!" << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "news? ";
+	}
+	// clear the cin stream
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	// execute the opcode from location
+	(*microcontroller)->executeFromLocation(inputOpcode, location);
+}
+

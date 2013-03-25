@@ -34,12 +34,12 @@ namespace mcontroller {
 	}
 
 	// execute the instruction coorecsponding to the opcode
-	void MopsR500::execute(int opcode){
+	void MopsR500::execute(unsigned char opcode){
 		this->executeFromLocation(opcode, this->getProgramCounter());
 	}
 
 	// execute from a specific location in memory
-	void MopsR500::executeFromLocation(int opcode, int address){
+	void MopsR500::executeFromLocation(unsigned char opcode, int address){
 		switch(opcode){
 			
 		case 0x0A:				// add value to memory
