@@ -12,6 +12,9 @@ namespace mcontroller {
 		// constructor
 		MacrochipPIC32F42();
 
+		// create function
+		static Microcontroller* create();
+
 		// Getters
 		unsigned char getW();
 

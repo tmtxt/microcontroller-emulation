@@ -15,6 +15,9 @@ namespace mcontroller {
 		// constructor
 		Rotamola34HC22();
 
+		// create function
+		static Microcontroller* create();
+
 		// reset the microcontroller
 		void reset();
 

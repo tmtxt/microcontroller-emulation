@@ -11,6 +11,9 @@ namespace mcontroller {
 		// constructor
 		MopsR500();
 
+		// create function
+		static Microcontroller* create();
+
 		// execute the instruction coorecsponding to the opcode
 		void execute();
 
