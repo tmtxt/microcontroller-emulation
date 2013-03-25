@@ -55,11 +55,11 @@ namespace mcontroller {
 			break;
 
 		case 0x17:				// branch relative
-
+			this->executeBranchRelative(address);
 			break;
 
 		case 0xFF:				// halt opcode
-
+			this->executeHalt(address);
 			break;
 			
 		default:				// invalid opcode
@@ -79,10 +79,6 @@ namespace mcontroller {
 	// determined by (high byte << 8) | low byte. After execution, the PC points to
 	// the fourth byte after the opcode.
 	void MopsR500::executeAddValueToMemory(int address){
-		unsigned char opcode = 0x0A;
-		
-		// store the opcode to memory location at the address
-		// this->setMemoryValueAtLocation(address, opcode);
 
 		// input value from user
 		int inputValue = this->inputHexadecimal("value? ");
@@ -113,11 +109,6 @@ namespace mcontroller {
 	// The format of the instruction is the same as add value to memory
 	// function. The value should be subtracted from the memory this time.
 	void MopsR500::executeSubtractValueFromMemory(int address){
-		unsigned char opcode = 0x13;
-
-		// store the opcode to memory location where the program counter is
-		// currently pointing to
-		// this->setMemoryValueAtLocation(address, opcode);
 
 		// input value from user
 		int inputValue = this->inputHexadecimal("value? ");
@@ -147,10 +138,6 @@ namespace mcontroller {
 	// byte after the opcode is the low byte of the address. After execution, the PC
 	// points to that address.
 	void MopsR500::executeGoToAddress(int address){
-		unsigned char opcode = 0x16;
-
-		// put the opcode into memory
-		// this->setMemoryValueAtLocation(address, opcode);
 
 		// compute the address from the low and high byte
 		// the memory address can be determined by (high byte << 8) | low byte
@@ -160,6 +147,29 @@ namespace mcontroller {
 
 		// set the program counter point to the new address
 		this->setProgramCounter(addressToGo);
+	}
+
+	// 0x17
+	// Branch relative
+	// The program branches to a new location, relative to the current location. The
+	// first byte after the opcode is the value that will be added to the PC. The
+	// value must be treated as a signed value, i.e.: 128 = -128).
+	void MopsR500::executeBranchRelative(int address){
+
+		// get the value from the next byte after the opcode and then add
+		// convert it to signed int
+		int valueToMove = (signed char)(this->getMemoryValueAtLocation(address + 1));
+
+		// move the program counter to the new location
+		this->setProgramCounter(address + valueToMove);
+	}
+
+	// 0xFF
+	// Halt opcode
+	// Execution stops and the PC is not incremented.
+	void MopsR500::executeHalt(int address){
+		// nothing to do here, just print out a message
+		cout << "Execution halt!" << endl;
 	}
 	
 }
