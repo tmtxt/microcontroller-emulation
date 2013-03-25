@@ -6,6 +6,7 @@ using std::cin;
 using std::endl;
 using std::cerr;
 using std::hex;
+using std::string;
 
 // Implementation of the Microcontroller class
 namespace mcontroller {
@@ -69,7 +70,7 @@ namespace mcontroller {
 
 		// Init variables here
 		// The input location
-		int location = this->inputHexadecimal();
+		int location = this->inputHexadecimal("location? ");
 
 		// Validate that the location is out of memory array index
 		if((location < 0) || (location >= this->getMemorySize())){
@@ -83,19 +84,19 @@ namespace mcontroller {
 	}
 
 	// read a hexadecimal number from user
-	int Microcontroller::inputHexadecimal(){
+	int Microcontroller::inputHexadecimal(string prompt){
 		// The input location
 		int location;
 
 		// Display the prompt
-		cout << "location? ";
+		cout << prompt;
 
 		// Read the location from user and ensure that user enter an hex int
 		while(!(cin >> hex >> location)){
 			cerr << "Please input a valid hexadecimal integer!" << endl;
 			cin.clear();
 			cin.ignore(1000, '\n');
-			cout << "location? ";
+			cout << prompt;
 		}
 
 		cin.clear();

@@ -1,6 +1,10 @@
 #ifndef MICROCONTROLLER_H_FLAG
 #define MICROCONTROLLER_H_FLAG
 
+#include <iostream>
+
+using std::string;
+
 namespace mcontroller {
     class Microcontroller
 	{
@@ -54,7 +58,7 @@ namespace mcontroller {
 		int lookUpMemoryAddress();
 
 		// read a hexadecimal number from user
-		int inputHexadecimal();
+		int inputHexadecimal(string);
 
 	};
 }
