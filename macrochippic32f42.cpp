@@ -1,10 +1,14 @@
 #include <iostream>
+#include <sstream>
+#include <iomanip>
 #include "macrochippic32f42.h"
 
 using std::cerr;
 using std::cin;
 using std::cout;
 using std::endl;
+using std::hex;
+using std::stringstream;
 
 // Implementation of MacrochipPIC34f42 class
 namespace mcontroller {
@@ -21,6 +25,14 @@ namespace mcontroller {
 	// static function for creating an instance of MacrochipPIC32F42 class
 	Microcontroller* MacrochipPIC32F42::create(){
 		return new MacrochipPIC32F42();
+	}
+
+	// get the status string
+	string MacrochipPIC32F42::getStatusString(){
+		stringstream stream;
+		stream << "Current Program Counter location: " << hex << this->getProgramCounter() << endl;
+		stream << "W register value: " << hex << (int)(this->getW());
+		return stream.str();
 	}
 
 	// Reset the microcontroller

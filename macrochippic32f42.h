@@ -21,6 +21,9 @@ namespace mcontroller {
 		// Setters
 		void setW(unsigned char);
 
+		// get the status string
+		string getStatusString();
+
 		// reset microcontroller
 		void reset();
 
