@@ -16,24 +16,6 @@ using std::endl;
 using std::tolower;
 using std::string;
 
-// Some constants used for input option
-const char errorCharacter = '!';
-const char optionConnect = 'c';
-const char optionDisplay = 'd';
-const char optionExecute = 'e';
-const char optionGo = 'g';
-const char optionHelp = 'h';
-const char optionLook = 'l';
-const char optionModify = 'm';
-const char optionReset = 'r';
-const char optionStatus = 's';
-const char optionQuit = 'q';
-
-// Some constants for microcontroller type
-const string controllerTypeR500 = "R500";
-const string controllerTypePIC32F42 = "PIC32F42";
-const string controllerType34HC22 = "34HC22";
-
 // Other constants
 const int memoryLocationInvalid = -1;
 

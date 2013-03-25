@@ -8,6 +8,19 @@
 // My defined function type for those functions that handle option
 typedef void optionHandler(mcontroller::Microcontroller**);
 
+// Some constants used for input option
+const char errorCharacter = '!';
+const char optionConnect = 'c';
+const char optionDisplay = 'd';
+const char optionExecute = 'e';
+const char optionGo = 'g';
+const char optionHelp = 'h';
+const char optionLook = 'l';
+const char optionModify = 'm';
+const char optionReset = 'r';
+const char optionStatus = 's';
+const char optionQuit = 'q';
+
 // FUNCTION DEFINITIONS
 
 // Functions to display prompt
