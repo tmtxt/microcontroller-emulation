@@ -42,7 +42,7 @@ namespace mcontroller {
 			break;
 
 		case 0x13:				// subtract value from memory
-
+			this->executeSubtractValueFromMemory();
 			break;
 
 		case 0x16:				// go to address
@@ -78,7 +78,8 @@ namespace mcontroller {
 		
 		// store the opcode to memory location where the program counter is
 		// currently pointing to
-		this->getMemory()[this->getProgramCounter()] = opcode;
+		this->setMemoryValueAtLocation(this->getProgramCounter(),
+									   opcode);
 
 		// input value from user
 		int inputValue = this->inputHexadecimal("value? ");
@@ -102,6 +103,38 @@ namespace mcontroller {
 		// move the program counter to the fourth byte after the opcode
 		this->setProgramCounter(this->getProgramCounter() + 4);
 		
+	}
+
+	// The format of the instruction is the same as add value to memory
+	// function. The value should be subtracted from the memory this time.
+	void MopsR500::executeSubtractValueFromMemory(){
+		unsigned char opcode = 0x13;
+
+		// store the opcode to memory location where the program counter is
+		// currently pointing to
+		this->setMemoryValueAtLocation(this->getProgramCounter(),
+									   opcode);
+
+		// input value from user
+		int inputValue = this->inputHexadecimal("value? ");
+
+		// get only the 8bit lower btes of the input to subtract from memory
+		unsigned char valueToSubtract = (inputValue & 0xFF);
+
+		// subtract value from the next byte after the opcode
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 1,
+									   this->getMemoryValueAtLocation(this->getProgramCounter() + 1) - valueToSubtract);
+
+		// get the low and high byte of the address
+		unsigned char addressLowByte = (this->getProgramCounter() & 0xFF);
+		unsigned char addressHighByte = ((this->getProgramCounter() >> 8) & 0xFF);
+
+		// put the low and high byte of the address to memory
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 2, addressLowByte);
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 3, addressHighByte);
+
+		// move the program counter to the fourth byte after the opcode
+		this->setProgramCounter(this->getProgramCounter() + 4);
 	}
 	
 }
