@@ -40,6 +40,7 @@ namespace mcontroller {
 		void executeBranchAlways(int);
 		void executeBranchIfALessThanB(int);
 		void executeBranchIfLessThanA(int);
+		void executeHalt(int);
 	};
 }
 

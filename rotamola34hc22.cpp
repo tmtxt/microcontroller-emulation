@@ -72,7 +72,7 @@ namespace mcontroller {
 			this->executeBranchIfLessThanA(address);
 			break;
 		case 0x64:				// halt opcode
-
+			this->executeHalt(address);
 			break;
 		default:				// invalid opcode
 			cerr << "Invalid opcode!" << endl;
@@ -220,5 +220,13 @@ namespace mcontroller {
 			this->setProgramCounter(address + 4);
 			
 		}
+	}
+
+	// 0x64
+	// Halt opcode
+	// Execution stops and the PC is not incremented.
+	void Rotamola34HC22::executeHalt(int address){
+		// nothing here, just halt the execution
+		cout << "Execution halt!" << endl;
 	}
 }
