@@ -14,6 +14,13 @@ namespace mcontroller {
 		// execute the instruction coorecsponding to the opcode
 		void execute(int);
 
+		// functions to execute opcode
+		void executeAddValueToMemory();
+		void executeSubtractValueFromMemory();
+		void executeGoToAddress();
+		void executeBranchRelative();
+		void executeHalt();
+
 		// reset the microcontroller
 		void reset();
 	};
