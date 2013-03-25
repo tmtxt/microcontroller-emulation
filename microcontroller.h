@@ -30,7 +30,7 @@ namespace mcontroller {
 		Microcontroller(int);
 
 		// destructor
-		
+		virtual ~Microcontroller();
 
 		// getters
 		int getProgramCounter();

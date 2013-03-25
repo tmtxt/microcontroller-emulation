@@ -24,6 +24,11 @@ namespace mcontroller {
 		this->initMemory(0);
 	}
 
+	// Destructor
+	Microcontroller::~Microcontroller(){
+		
+	}
+
 	// Getters
 	unsigned char* Microcontroller::getMemory(){
 		return this->memory;
