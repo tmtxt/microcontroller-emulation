@@ -21,12 +21,12 @@ namespace mcontroller {
 	int Microcontroller::getMemorySize(){
 		return this->memorySize;
 	}
-	unsigned char* Microcontroller::getProgramCounter(){
+	int Microcontroller::getProgramCounter(){
 		return this->programCounter;
 	}
 
 	// Setters
-	void Microcontroller::setProgramCounter(unsigned char* programCounter){
+	void Microcontroller::setProgramCounter(int programCounter){
 		this->programCounter = programCounter;
 	}
 
