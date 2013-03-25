@@ -40,12 +40,20 @@ namespace mcontroller {
 
 	// get the value at the input address location
 	unsigned char Microcontroller::getMemoryValueAtLocation(int location){
-		return (this->getMemory())[location];
+		if(location < 0 || location >= this->getMemorySize()){
+			return 0;
+		} else {
+			return (this->getMemory())[location];
+		}
 	}
 
 	// set the value at the input address location
 	void Microcontroller::setMemoryValueAtLocation(int location, unsigned char value){
-		(this->getMemory())[location] = value;
+		if(location < 0 || location >= this->getMemorySize()){
+			
+		} else {
+			(this->getMemory())[location] = value;
+		}
 	}
 	
 }
