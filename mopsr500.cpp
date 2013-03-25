@@ -46,7 +46,7 @@ namespace mcontroller {
 			break;
 
 		case 0x16:				// go to address
-
+			this->executeGoToAddress();
 			break;
 
 		case 0x17:				// branch relative
@@ -97,14 +97,16 @@ namespace mcontroller {
 		unsigned char addressHighByte = ((this->getProgramCounter() >> 8) & 0xFF);
 
 		// put the low and high byte of the address to memory
-		this->setMemoryValueAtLocation(this->getProgramCounter() + 2, addressLowByte);
-		this->setMemoryValueAtLocation(this->getProgramCounter() + 3, addressHighByte);
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 3, addressLowByte);
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 2, addressHighByte);
 
 		// move the program counter to the fourth byte after the opcode
 		this->setProgramCounter(this->getProgramCounter() + 4);
 		
 	}
 
+	// 0x13
+	// Subtract Value from Memory
 	// The format of the instruction is the same as add value to memory
 	// function. The value should be subtracted from the memory this time.
 	void MopsR500::executeSubtractValueFromMemory(){
@@ -130,11 +132,33 @@ namespace mcontroller {
 		unsigned char addressHighByte = ((this->getProgramCounter() >> 8) & 0xFF);
 
 		// put the low and high byte of the address to memory
-		this->setMemoryValueAtLocation(this->getProgramCounter() + 2, addressLowByte);
-		this->setMemoryValueAtLocation(this->getProgramCounter() + 3, addressHighByte);
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 3, addressLowByte);
+		this->setMemoryValueAtLocation(this->getProgramCounter() + 2, addressHighByte);
 
 		// move the program counter to the fourth byte after the opcode
 		this->setProgramCounter(this->getProgramCounter() + 4);
+	}
+
+	// 0x16
+	// Go to address (always branch)
+	// The first byte after the opcode is the high byte of the address. The second
+	// byte after the opcode is the low byte of the address. After execution, the PC
+	// points to that address.
+	void MopsR500::executeGoToAddress(){
+		unsigned char opcode = 0x16;
+
+		// put the opcode into memory
+		this->setMemoryValueAtLocation(this->getProgramCounter(),
+									   opcode);
+
+		// compute the address from the low and high byte
+		// the memory address can be determined by (high byte << 8) | low byte
+		unsigned char addressHighByte = this->getMemoryValueAtLocation(this->getProgramCounter() + 1);
+		unsigned char addressLowByte = this->getMemoryValueAtLocation(this->getProgramCounter() + 2);
+		int address = ((addressHighByte << 8) | addressLowByte);
+
+		// set the program counter point to the new address
+		this->setProgramCounter(address);
 	}
 	
 }
