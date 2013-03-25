@@ -63,7 +63,7 @@ namespace mcontroller {
 			this->executeIncrementRegisterA(address);
 			break;
 		case 0x5A:				// branch always
-
+			this->executeBranchAlways(address);
 			break;
 		case 0x5B:				// branch if A<B
 
@@ -138,6 +138,25 @@ namespace mcontroller {
 
 		// move the program counter to the next byte
 		this->setProgramCounter(address);
+	}
+
+	// 0x5A
+	// Branch Always
+	// The first byte after the opcode represents the high byte of the memory
+	// address. The second byte after the opcode represents the low byte of the
+	// memory address. The PC is set to this memory address.
+	void Rotamola34HC22::executeBranchAlways(int address){
+		
+		// get the high byte and low byte address of the destination address
+		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
+
+		// compute the destination address
+		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+		// set the program counter to the new address
+		this->setProgramCounter(destinationAddress);
+
 	}
 
 }
