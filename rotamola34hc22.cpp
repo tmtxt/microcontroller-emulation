@@ -1,10 +1,14 @@
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 #include "rotamola34hc22.h"
 
 using std::cout;
 using std::cin;
 using std::cerr;
 using std::endl;
+using std::hex;
+using std::stringstream;
 
 // Implementation of Rotomola34HC22 class
 namespace mcontroller {
@@ -22,6 +26,17 @@ namespace mcontroller {
 	Microcontroller* Rotamola34HC22::create(){
 		return new Rotamola34HC22();
 	}
+
+	
+	// get the status string
+	string Rotamola34HC22::getStatusString(){
+		stringstream stream;
+		stream << "Current Program Counter location: " << hex << this->getProgramCounter() << endl;
+		stream << "A register value: " << hex << (int)(this->getA()) << endl;
+		stream << "B register value: " << hex << (int)(this->getB());
+		return stream.str();
+	}
+
 
 	// reset the microcontroller
 	void Rotamola34HC22::reset(){

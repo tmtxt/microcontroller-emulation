@@ -21,6 +21,10 @@ namespace mcontroller {
 		// reset the microcontroller
 		void reset();
 
+		
+		// get the status string
+		string getStatusString();
+
 		// Getters
 		unsigned char getA();
 		unsigned char getB();
