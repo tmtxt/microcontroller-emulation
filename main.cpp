@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	char userOption;
 
 	// The Microcontroller of the program
-	Microcontroller* microcontroller;
+	Microcontroller* microcontroller = 0;
 
 	
 	// EXECUTION OF PROGRAM

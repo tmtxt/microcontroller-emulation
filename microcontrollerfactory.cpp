@@ -17,6 +17,8 @@
 #include "rotamola34hc22.h"
 
 using std::pair;
+using std::cerr;
+using std::endl;
 
 // Implementation for MicrocontrollerFactory class
 namespace mcontroller {
@@ -44,7 +46,19 @@ namespace mcontroller {
 	// create the microcontroller with the input name
 	// if no microcontroller found, return 0
 	Microcontroller* MicrocontrollerFactory::createMicrocontroller(string name){
-		createFunction* createFn = this->createFunctionMap[name];
-		return createFn();
+
+
+		// check if the create function is exist
+		if(this->createFunctionMap.find(name) == this->createFunctionMap.end()){
+			// not exist
+			cerr << "Invalid Type!" << endl;
+			return 0;
+		} else {
+			// exist
+			// get the create function from the map
+			createFunction* createFn = this->createFunctionMap[name];			
+			return createFn();
+		}
 	}
 }
+
