@@ -127,7 +127,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionResetHandler(microcontroller);
 		break;
 	case optionStatus:
-		cout << "Status";
+		optionDisplayStatusHandler(microcontroller);
 		break;
 	case optionQuit:
 		// If user want to quit, simply just quit the function
@@ -362,3 +362,7 @@ void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller** mic
 	(*microcontroller)->executeFromLocation(inputOpcode, location);
 }
 
+// This function will query and display microcontroller status.
+void optionDisplayStatusHandler(mcontroller::Microcontroller** microcontroller){
+	cout << (*microcontroller)->getStatusString() << endl;
+}
