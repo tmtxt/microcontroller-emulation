@@ -19,3 +19,7 @@ microcontroller.o: microcontroller.h
 macrochippic32f42.o: macrochippic32f42.h microcontroller.h
 mopsr500.o: mopsr500.h microcontroller.h
 rotamola34hc22.o: rotamola34hc22.h microcontroller.h
+
+.PHONY: clean
+clean:
+	$(RM) -r $(OBJS) $(EXEC) $(EXEC).dSYM
