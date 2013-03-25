@@ -23,11 +23,6 @@ const char optionQuit = 'q';
 
 // FUNCTION DEFINITIONS
 
-// Functions to display prompt
-void displayApplicationPrompt();
-void displayConnectPrompt();
-void displayLocationPrompt();
-
 // Utility function
 char inputOption();
 void switchOption(char, mcontroller::Microcontroller**);

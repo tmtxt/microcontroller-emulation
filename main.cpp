@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
 	do
 	{
 		// Display the application prompt
-		displayApplicationPrompt();
+		cout << "> ";
 		
 		// Read user input
 		userOption = inputOption();
@@ -56,25 +56,6 @@ int main(int argc, char *argv[])
 	
 	// End the program
 	return 0;
-}
-
-// Function displayConnectPrompt()
-// Display the prompt when user connect to a microcontroller
-void displayConnectPrompt(){
-	cout << "type? ";
-}
-
-// Function displayLocationPrompt()
-// Display the prompt location
-void displayLocationPrompt(){
-	cout << "location? ";
-}
-
-// Function optionErrorHandler()
-// just display the error for the user
-void optionErrorHandler(){
-	cout << "Wrong option!" << endl
-		 << "Type h for Help" << endl;
 }
 
 // Function switchOption()
@@ -119,21 +100,6 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 	}
 }
 
-// Function optionHelpHandler()
-// Display the help for user
-void optionHelpHandler(){
-	cout << "Help" << endl
-		 << "Connect c" << endl
-		 << "Display d" << endl;
-}
-
-// Function displayApplicationPrompt()
-// Display the application prompt ">"
-void displayApplicationPrompt(){
-	cout << ">" << " ";
-}
-
-// Function inputOption()
 // Read from user input and then return the input value
 // If error, return constant errorCharacter
 char inputOption(){
@@ -159,6 +125,21 @@ char inputOption(){
 	
 }
 
+// Function optionErrorHandler()
+// just display the error for the user
+void optionErrorHandler(){
+	cout << "Wrong option!" << endl
+		 << "Type h for Help" << endl;
+}
+
+// Function optionHelpHandler()
+// Display the help for user
+void optionHelpHandler(){
+	cout << "Help" << endl
+		 << "Connect c" << endl
+		 << "Display d" << endl;
+}
+
 // Function optionConnectHandler()
 // Handler for connect option
 // Display the prompt to ask user enter microcontroller type
@@ -173,7 +154,7 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	
 	// display the prompt to ask user to enter microcontroller type
 	cout << "Enter the type of microcontroller to connect" << endl;
-	displayConnectPrompt();
+	cout << "type? ";
 
 	// read the microcontroller type from user
 	string inputMicrocontrollerType;
