@@ -107,28 +107,28 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionConnectHandler(microcontroller);
 		break;
 	case optionDisplay:
-		optionDisplayAllMemoryHandler(microcontroller);
+		executeOptionIfConnected(microcontroller, optionDisplayAllMemoryHandler);
 		break;
 	case optionExecute:
-		optionExecuteHandler(microcontroller);
+		executeOptionIfConnected(microcontroller, optionExecuteHandler);
 		break;
 	case optionGo:
-		optionExecuteFromSpecificLocationHandler(microcontroller);
+		executeOptionIfConnected(microcontroller, optionExecuteFromSpecificLocationHandler);
+		break;
+	case optionLook:
+		executeOptionIfConnected(microcontroller, optionLookAtMemoryHandler);
+		break;
+	case optionModify:
+		executeOptionIfConnected(microcontroller, optionModifyMemoryHandler);
+		break;
+	case optionReset:
+		executeOptionIfConnected(microcontroller, optionResetHandler);
+		break;
+	case optionStatus:
+		executeOptionIfConnected(microcontroller, optionDisplayStatusHandler);
 		break;
 	case optionHelp:
 		optionHelpHandler();
-		break;
-	case optionLook:
-		optionLookAtMemoryHandler(microcontroller);
-		break;
-	case optionModify:
-		optionModifyMemoryHandler(microcontroller);
-		break;
-	case optionReset:
-		optionResetHandler(microcontroller);
-		break;
-	case optionStatus:
-		optionDisplayStatusHandler(microcontroller);
 		break;
 	case optionQuit:
 		// If user want to quit, simply just quit the function
@@ -332,4 +332,22 @@ void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller** mic
 // This function will query and display microcontroller status.
 void optionDisplayStatusHandler(mcontroller::Microcontroller** microcontroller){
 	cout << (*microcontroller)->getStatusString() << endl;
+}
+
+// Check if the microcontroller is currently connected, execute handlerFunction
+// otherwise, prinpt the error to cerr
+void executeOptionIfConnected(Microcontroller** microcontroller, optionHandler* handlerFunction){
+	
+	// check whether the microcontroller is connected
+	if((*microcontroller) == 0){
+		// Not connected
+		// print the message to cerr
+		cerr << "Error: Not connected to any controller!" << endl;
+		cerr << "Type c to connect to a controller." << endl;
+		cerr << "Type h for help." << endl;
+	} else {
+		// Connected
+		// execute the handler function
+		handlerFunction(microcontroller);
+	}
 }
