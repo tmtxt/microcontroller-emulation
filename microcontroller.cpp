@@ -73,7 +73,7 @@ namespace mcontroller {
 
 	// ask user to input a memory location and then return the memory
 	// location if that address is exist, otherwise, print the message to cerr and
-	// the return -1
+	// the return Microcontroller::memoryLocationInvalid
 	int Microcontroller::lookUpMemoryAddress(){
 
 		// Init variables here
@@ -84,7 +84,7 @@ namespace mcontroller {
 		if((location < 0) || (location >= this->getMemorySize())){
 			// Display the error for user
 			cerr << "Invalid address!" << endl;
-			return -1;
+			return Microcontroller::memoryLocationInvalid;
 		} else {
 			// Address valid, return the address location
 			return location;

@@ -8,6 +8,7 @@ using std::string;
 namespace mcontroller {
     class Microcontroller
 	{
+		// VARIABLES
 	protected:
 		// program counter: internal CPU register that point to the memory
 		// location that contains the next instruction
@@ -20,15 +21,21 @@ namespace mcontroller {
 		// in byte
 		int memorySize;
 
-		// some other utility functions
+	public:
+		// The static const variable for lookUpMemory() to return if there is no
+		// memory found
+		static const int memoryLocationInvalid = -1;
 		
+		// FUNCTIONS
+	protected:
 		// init the values of memory array all to the input value
 		void initMemory(int);
-		
-	public:
-		// constructor
+
+		// constructor, should be private since no one should be able to create
+		// new instance of this class
 		Microcontroller(int);
 
+	public:
 		// destructor
 		virtual ~Microcontroller();
 

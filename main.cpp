@@ -16,9 +16,6 @@ using std::endl;
 using std::tolower;
 using std::string;
 
-// Other constants
-const int memoryLocationInvalid = -1;
-
 // Application namespace
 using namespace mcontroller;
 
@@ -226,7 +223,7 @@ void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	location = (*microcontroller)->lookUpMemoryAddress();
 
 	// check if the location is valid
-	if(location != memoryLocationInvalid){
+	if(location != Microcontroller::memoryLocationInvalid){
 		// print the old value
 		unsigned int oldValue = (*microcontroller)->getMemoryValueAtLocation(location);
 		cout << "Old value: ";
