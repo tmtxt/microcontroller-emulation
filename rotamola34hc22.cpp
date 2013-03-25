@@ -57,10 +57,10 @@ namespace mcontroller {
 			this->executeLoadAWithValue(address);
 			break;
 		case 0x38:				// load B with value
-
+			this->executeLoadBWithValue(address);
 			break;
 		case 0x53:				// increment A
-
+			this->executeIncrementRegisterA(address);
 			break;
 		case 0x5A:				// branch always
 
@@ -125,6 +125,19 @@ namespace mcontroller {
 
 		// set the program counter the the second byte after opcode
 		this->setProgramCounter(address + 2);
+	}
+
+	// 0x53
+	// Increment Register A
+	// The value of register A is incremented, and the result is stored back
+	// into A. The value of the PC is incremented, so it points to the next byte
+	// after the opcode.
+	void Rotamola34HC22::executeIncrementRegisterA(int address){
+		// increare the value of A
+		this->setA(this->getA() + 1);
+
+		// move the program counter to the next byte
+		this->setProgramCounter(address);
 	}
 
 }
