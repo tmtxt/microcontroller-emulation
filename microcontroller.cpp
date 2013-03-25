@@ -1,4 +1,6 @@
 #include <iostream>
+#include <iomanip>
+#include <sstream>
 #include "microcontroller.h"
 
 using std::cout;
@@ -7,6 +9,7 @@ using std::endl;
 using std::cerr;
 using std::hex;
 using std::string;
+using std::stringstream;
 
 // Implementation of the Microcontroller class
 namespace mcontroller {
@@ -103,6 +106,13 @@ namespace mcontroller {
 		cin.ignore(1000, '\n');
 
 		return location;
+	}
+
+	// get the status string
+	string Microcontroller::getStatusString(){
+		stringstream stream;
+		stream << "Current Program Counter location: " << hex << this->getProgramCounter();
+		return stream.str();
 	}
 	
 }

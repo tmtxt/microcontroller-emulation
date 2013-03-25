@@ -49,6 +49,9 @@ namespace mcontroller {
 		// execute from specific location
 		virtual void executeFromLocation(unsigned char, int) = 0;
 
+		// get the status string
+		virtual string getStatusString();
+
 		// some other utility functions
 		
 		// get the value at the input address location
