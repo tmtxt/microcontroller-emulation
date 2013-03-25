@@ -15,6 +15,11 @@ namespace mcontroller {
 		reset();
 	}
 
+	// static function for creating an instance of MacrochipPIC32F42 class
+	Microcontroller* Rotamola34HC22::create(){
+		return new Rotamola34HC22();
+	}
+
 	// reset the microcontroller
 	void Rotamola34HC22::reset(){
 		this->setProgramCounter(509);

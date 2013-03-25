@@ -18,6 +18,11 @@ namespace mcontroller {
 		this->reset();
 	}
 
+	// static function for creating an instance of MacrochipPIC32F42 class
+	Microcontroller* MacrochipPIC32F42::create(){
+		return new MacrochipPIC32F42();
+	}
+
 	// Reset the microcontroller
 	// Upon reset, the program counter (PC) is set to 0. The W register is set to 0.
 	void MacrochipPIC32F42::reset(){

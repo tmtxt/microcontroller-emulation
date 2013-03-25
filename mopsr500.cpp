@@ -18,6 +18,11 @@ namespace mcontroller {
 		this->reset();
 	}
 
+	// static function for creating an instance of MacrochipPIC32F42 class
+	Microcontroller* MopsR500::create(){
+		return new MopsR500();
+	}
+
 	// Reset the microcontroller
 	// Upon reset, the microcontroller sets the program counter (PC) to location
 	// 0. The microcontroller clears all internal memory and initialises it to
