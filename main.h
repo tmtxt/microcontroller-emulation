@@ -18,3 +18,4 @@ void optionResetHandler(mcontroller::Microcontroller**);
 void optionLookAtMemoryHandler(mcontroller::Microcontroller**);
 void optionModifyMemoryHandler(mcontroller::Microcontroller**);
 void optionDisplayAllMemoryHandler(mcontroller::Microcontroller**);
+void optionExecuteHandler(mcontroller::Microcontroller**);
