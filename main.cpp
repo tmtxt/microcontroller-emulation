@@ -109,7 +109,7 @@ void switchOption(char userOption, Microcontroller** microcontroller){
 		optionDisplayAllMemoryHandler(microcontroller);
 		break;
 	case optionExecute:
-		cout << "Execute";
+		optionExecuteHandler(microcontroller);
 		break;
 	case optionGo:
 		cout << "Go";
@@ -225,10 +225,10 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	int location;
 	
 	// input memory location
-	location = lookUpMemoryAddress(microcontroller);
+	location = (*microcontroller)->lookUpMemoryAddress();
 
 	// check if the input location is valid
-	if(location != memoryLocationInvalid){
+	if(location >= 0){
 		// print out the value at the memory address
 		unsigned int value = (*microcontroller)->getMemoryValueAtLocation(location);
 		cout << "The value at location ";
@@ -239,37 +239,6 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	}
 }
 
-// ask user to input a memory location and then return the memory
-// location if that address is exist, otherwise, print the message to cerr and
-// the return memoryLocationInvalid
-int lookUpMemoryAddress(mcontroller::Microcontroller** microcontroller){
-
-	// Init variables here
-	// The input location
-	int location;
-
-	// Display the prompt
-	displayLocationPrompt();
-
-	// Read the location from user and ensure that user enter an hex int
-	while(!(cin >> hex >> location)){
-		cerr << "Please input a valid hexadecimal integer!" << endl;
-		cin.clear();
-		cin.ignore(1000, '\n');
-		displayLocationPrompt();
-	}
-
-	// Validate that the location is out of memory array index
-	if((location < 0) || (location >= (*microcontroller)->getMemorySize())){
-		// Display the error for user
-		cerr << "Invalid address!" << endl;
-		return memoryLocationInvalid;
-	} else {
-		// Address valid, return the address location
-		return location;
-	}
-}
-
 // Handler for Modify Memory option
 void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 
@@ -277,7 +246,7 @@ void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	int location;
 
 	// input address from user
-	location = lookUpMemoryAddress(microcontroller);
+	location = (*microcontroller)->lookUpMemoryAddress();
 
 	// check if the location is valid
 	if(location != memoryLocationInvalid){
@@ -348,5 +317,21 @@ void optionDisplayAllMemoryHandler(mcontroller::Microcontroller** microcontrolle
 }
 
 void optionExecuteHandler(mcontroller::Microcontroller** microcontroller){
+	unsigned int inputOpcode;
+
+	// input opcode
+	cout << "opcode? ";
+	// validate input
+	while(!(cin >> hex >> inputOpcode)){
+		cerr << "Please input a valid hexadecimal integer!" << endl;
+		cin.clear();
+		cin.ignore(1000, '\n');
+		cout << "news? ";
+	}
+	// clear the cin stream
+	cin.clear();
+	cin.ignore(1000, '\n');
+
+	(*microcontroller)->execute(inputOpcode);
 	
 }

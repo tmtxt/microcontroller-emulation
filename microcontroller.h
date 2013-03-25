@@ -50,6 +50,9 @@ namespace mcontroller {
 		// set the value at the input address location
 		void setMemoryValueAtLocation(int, unsigned char);
 
+		// look up memory
+		int lookUpMemoryAddress();
+
 	};
 }
 

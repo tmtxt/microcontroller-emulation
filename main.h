@@ -9,7 +9,6 @@ void displayLocationPrompt();
 
 char inputOption();
 void switchOption(char, mcontroller::Microcontroller**);
-int lookUpMemoryAddress(mcontroller::Microcontroller**);
 
 void optionErrorHandler();
 void optionHelpHandler();
@@ -19,3 +18,4 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller**);
 void optionModifyMemoryHandler(mcontroller::Microcontroller**);
 void optionDisplayAllMemoryHandler(mcontroller::Microcontroller**);
 void optionExecuteHandler(mcontroller::Microcontroller**);
+

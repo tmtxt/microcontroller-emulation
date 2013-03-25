@@ -1,6 +1,12 @@
 #include <iostream>
 #include "microcontroller.h"
 
+using std::cout;
+using std::cin;
+using std::endl;
+using std::cerr;
+using std::hex;
+
 // Implementation of the Microcontroller class
 namespace mcontroller {
 
@@ -53,6 +59,40 @@ namespace mcontroller {
 			
 		} else {
 			(this->getMemory())[location] = value;
+		}
+	}
+
+	// ask user to input a memory location and then return the memory
+	// location if that address is exist, otherwise, print the message to cerr and
+	// the return -1
+	int Microcontroller::lookUpMemoryAddress(){
+
+		// Init variables here
+		// The input location
+		int location;
+
+		// Display the prompt
+		cout << "location? ";
+
+		// Read the location from user and ensure that user enter an hex int
+		while(!(cin >> hex >> location)){
+			cerr << "Please input a valid hexadecimal integer!" << endl;
+			cin.clear();
+			cin.ignore(1000, '\n');
+			cout << "location? ";
+		}
+
+		cin.clear();
+		cin.ignore(1000, '\n');
+
+		// Validate that the location is out of memory array index
+		if((location < 0) || (location >= this->getMemorySize())){
+			// Display the error for user
+			cerr << "Invalid address!" << endl;
+			return -1;
+		} else {
+			// Address valid, return the address location
+			return location;
 		}
 	}
 	
