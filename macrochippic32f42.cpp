@@ -57,16 +57,16 @@ namespace mcontroller {
 			this->executeMoveWToMemory(address);
 			break;
 		case 0x5A:				// add value to W
-
+			this->executeAddValueToW(address);
 			break;
 		case 0x5B:				// subtract value from W
-
+			this->executeSubtractValueFromW(address);
 			break;
 		case 0x6E:				// Goto address (branch always)
-
+			this->executeGoToAddress(address);
 			break;
 		case 0x70:				// Branch if not equal
-
+			this->executeBranchIfNotEqual(address);
 			break;
 		case 0xFF:				// Halt opcode
 
@@ -100,7 +100,7 @@ namespace mcontroller {
 	// the address of the third byte after the opcode.
 	void MacrochipPIC32F42::executeMoveWToMemory(int address){
 		
-		// get the high byt and low byte address of the destination address
+		// get the high byte and low byte address of the destination address
 		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
 		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
@@ -113,4 +113,80 @@ namespace mcontroller {
 		// set the program counter to the third byte after the opcode
 		this->setProgramCounter(address + 3);
 	}
+
+	// 0x5A
+	// Add Value to W
+	// The first byte after the opcode is the value to be added to the W
+	// register. The PC is set to the address of the second byte after the
+	// opcode.
+	void MacrochipPIC32F42::executeAddValueToW(int address){
+		// add value to W
+		this->setW(this->getW() + this->getMemoryValueAtLocation(address + 1));
+
+		// set the program counter to the second byte after the opcode
+		this->setProgramCounter(address + 2);
+	}
+
+	// 0x5B
+	// Subtract Value from W
+	// The first byte after the opcode is the value to be subtracted from the W
+	// register. The PC is set to the address of the second byte after the
+	// opcode.
+	void MacrochipPIC32F42::executeSubtractValueFromW(int address){
+		// subtract value from w
+		this->setW(this->getW() - this->getMemoryValueAtLocation(address + 1));
+
+		// set the program counter to the second byte after the opcode
+		this->setProgramCounter(address + 2);
+	}
+
+	// 0x6E
+	// Goto address (branch always)
+	// The first byte after the opcode is the high byte of the address. The
+	// second block of memory after the opcode is the low byte of the address.
+	// After execution, the PC points to that address.
+	void MacrochipPIC32F42::executeGoToAddress(int address){
+
+		// get the high byte and low byte address of the destination address
+		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
+
+		// compute the destination address
+		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+		// set the program counter to the destination address
+		this->setProgramCounter(destinationAddress);
+	}
+
+	// 0x70
+	// Branch if not equal
+	// The next value after the opcode is the comparison value. The second block
+	// of memory after the opcode is the high byte of the branch target, and the
+	// third block of memory is the low byte of the branch target. If the W
+	// register is not the same as the comparison value, then the program
+	// counter is set to equal the branch target. Otherwise, the program counter
+	// is set to equal the fourth block of memory after the opcode.
+	void MacrochipPIC32F42::executeBranchIfNotEqual(int address){
+
+		// the value to compare
+		unsigned char comparisonValue = this->getMemoryValueAtLocation(address + 1);
+		
+		// compare W to comparisonValue
+		if(comparisonValue == this->getW()){
+			// if equal, set the program counter to the 4 block of memory after
+			// the opcode
+			this->setProgramCounter(address + 4);
+		} else {
+			// get the high byte and low byte address of the destination address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
+
+			// compute the destination address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+			// set the program counter to the new address
+			this->setProgramCounter(destinationAddress);
+		}
+	}
+
 }
