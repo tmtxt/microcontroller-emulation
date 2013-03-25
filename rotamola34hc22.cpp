@@ -66,7 +66,7 @@ namespace mcontroller {
 			this->executeBranchAlways(address);
 			break;
 		case 0x5B:				// branch if A<B
-
+			this->executeBranchIfALessThanB(address);
 			break;
 		case 0x5D:				// branch if less than A
 
@@ -157,6 +157,35 @@ namespace mcontroller {
 		// set the program counter to the new address
 		this->setProgramCounter(destinationAddress);
 
+	}
+
+	// 0x5B
+	// Branch if A < B
+	// The first byte after the opcode represents the high byte of the memory
+	// address. The second byte after the opcode represents the low byte of the
+	// memory address. If the content of A is less than B, the PC is set to this
+	// memory address. Otherwise, the PC is set to the third byte after the
+	// opcode.
+	void Rotamola34HC22::executeBranchIfALessThanB(int address){
+		// compare the value of A and B
+		if(this->getA() < this->getB()){
+
+			// get the high byte and low byte address of the destination address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
+
+			// compute the destination address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+			// set the program counter to the new address
+			this->setProgramCounter(destinationAddress);
+			
+		} else {
+			
+			// set the program counter to the third byte after the opcode
+			this->setProgramCounter(address + 1);
+			
+		}
 	}
 
 }
