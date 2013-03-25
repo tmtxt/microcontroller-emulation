@@ -69,7 +69,7 @@ namespace mcontroller {
 			this->executeBranchIfNotEqual(address);
 			break;
 		case 0xFF:				// Halt opcode
-
+			this->executeHalt(address);
 			break;
 		default:				// invalid opcode
 			cerr << "Invalid opcode!" << endl;
@@ -187,6 +187,14 @@ namespace mcontroller {
 			// set the program counter to the new address
 			this->setProgramCounter(destinationAddress);
 		}
+	}
+
+	// 0xFF
+	// Halt opcode
+	// Execution stops and the PC is not incremented.
+	void MacrochipPIC32F42::executeHalt(int address){
+		// nothing here, just display a message for user
+		cout << "Execution halt!" << endl;
 	}
 
 }
