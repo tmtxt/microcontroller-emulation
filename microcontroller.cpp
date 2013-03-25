@@ -69,6 +69,22 @@ namespace mcontroller {
 
 		// Init variables here
 		// The input location
+		int location = this->inputHexadecimal();
+
+		// Validate that the location is out of memory array index
+		if((location < 0) || (location >= this->getMemorySize())){
+			// Display the error for user
+			cerr << "Invalid address!" << endl;
+			return -1;
+		} else {
+			// Address valid, return the address location
+			return location;
+		}
+	}
+
+	// read a hexadecimal number from user
+	int Microcontroller::inputHexadecimal(){
+		// The input location
 		int location;
 
 		// Display the prompt
@@ -85,15 +101,7 @@ namespace mcontroller {
 		cin.clear();
 		cin.ignore(1000, '\n');
 
-		// Validate that the location is out of memory array index
-		if((location < 0) || (location >= this->getMemorySize())){
-			// Display the error for user
-			cerr << "Invalid address!" << endl;
-			return -1;
-		} else {
-			// Address valid, return the address location
-			return location;
-		}
+		return location;
 	}
 	
 }

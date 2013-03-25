@@ -53,6 +53,9 @@ namespace mcontroller {
 		// look up memory
 		int lookUpMemoryAddress();
 
+		// read a hexadecimal number from user
+		int inputHexadecimal();
+
 	};
 }
 
