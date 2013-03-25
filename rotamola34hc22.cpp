@@ -119,6 +119,12 @@ namespace mcontroller {
 	// Load B with Value
 	// The first byte after the opcode is the value to load into the B register.
 	// The PC is set to the second byte after the opcode.
-	
+	void Rotamola34HC22::executeLoadBWithValue(int address){
+		// load value from the first byte after the opcode to B
+		this->setB(this->getMemoryValueAtLocation(address + 1));
+
+		// set the program counter the the second byte after opcode
+		this->setProgramCounter(address + 2);
+	}
 
 }
