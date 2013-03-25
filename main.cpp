@@ -6,6 +6,7 @@
 #include "mopsr500.h"
 #include "macrochippic32f42.h"
 #include "rotamola34hc22.h"
+#include "microcontrollerfactory.h"
 
 using std::cout;
 using std::cin;
@@ -185,6 +186,9 @@ char inputOption(){
 // and then connect to that microcontroller
 void optionConnectHandler(Microcontroller** microcontroller){
 
+	// a factory for creating microcontroller
+	MicrocontrollerFactory factory;
+
 	// first free memory for the existing microcontroller
 	delete *microcontroller;
 	
@@ -196,18 +200,9 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	string inputMicrocontrollerType;
 	cin >> inputMicrocontrollerType;
 
-	// check whether the user input is valid and then allocate new object
-	if(inputMicrocontrollerType == controllerTypeR500){
-		*microcontroller = new MopsR500();
-	} else if (inputMicrocontrollerType == controllerTypePIC32F42){
-		*microcontroller = new MacrochipPIC32F42();
-	} else if (inputMicrocontrollerType == controllerType34HC22) {
-		*microcontroller = new Rotamola34HC22();
-		cout << controllerType34HC22 << " connected!\n";
-	} else {
-		// display the error message
-		cout << "Invalid type!\n";
-	}
+	// create microcontroller
+	(*microcontroller) = factory.createMicrocontroller(inputMicrocontrollerType);
+	
 }
 
 // Function optionResetHandler()
