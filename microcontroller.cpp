@@ -26,7 +26,7 @@ namespace mcontroller {
 
 	// Destructor
 	Microcontroller::~Microcontroller(){
-		
+		delete [] this->memory;
 	}
 
 	// Getters
