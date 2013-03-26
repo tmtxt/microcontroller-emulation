@@ -16,6 +16,7 @@
 #include "macrochippic32f42.h"
 #include "rotamola34hc22.h"
 
+using std::cout;
 using std::pair;
 using std::cerr;
 using std::endl;
@@ -53,8 +54,8 @@ namespace mcontroller {
 		if(this->createFunctionMap.find(name) == this->createFunctionMap.end()){
 			// not exist
 			// notify user
-			cerr << "Invalid Type!" << endl;
-			cerr << "Valid types of Microcontroller are "
+			cerr << "Error: Invalid Microcontroller type." << endl;
+			cout << "Message: Valid types of Microcontroller are "
 				 << this->getAvailableMicrocontrollersString()
 				 << endl;
 			return 0;

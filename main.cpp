@@ -35,16 +35,22 @@ int main(int argc, char *argv[])
 
 	
 	// EXECUTION OF PROGRAM
+
+	// print welcome
+	cout << "MICROCONTROLLER SIMULATOR" << endl;
 	
 	// Start the program
 	// Loop for user enter option until user enter 'q' or 'Q'
 	do
 	{
 		// Display the application prompt
+		cout << "Message: Enter the option you want. Type h for help" << endl;
 		cout << "> ";
 		
 		// Read user input
 		userOption = inputOption();
+
+		cout << endl;
 
 		// Check the userOption variable and the switch the user to the right function
 		switchOption(userOption, &microcontroller);
@@ -140,7 +146,6 @@ void optionHelpHandler(){
 		 << "Display d" << endl;
 }
 
-// Function optionConnectHandler()
 // Handler for connect option
 // Display the prompt to ask user enter microcontroller type
 // and then connect to that microcontroller
@@ -153,7 +158,8 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	delete *microcontroller;
 	
 	// display the prompt to ask user to enter microcontroller type
-	cout << "Enter the type of microcontroller to connect" << endl;
+	cout << "Message: Connect to Microcontroller" << endl;
+	cout << "Message: Enter the type of microcontroller to connect" << endl;
 	cout << "type? ";
 
 	// read the microcontroller type from user
@@ -165,17 +171,19 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	
 }
 
-// Function optionResetHandler()
 // Handle reset option
-// Reset the comtroller, simply just call the reset method of the input micrcontroller
+// Reset the controller, simply just call the reset method of the input micrcontroller
 void optionResetHandler(mcontroller::Microcontroller** microcontroller){
 	(*microcontroller)->reset();
 }
 
-// Function optionLookAtMemoryHandler()
 // Ask the user to input an address and output the value at that address
 void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 
+	// display the message for user
+	cout << "Message: Look at memory." << endl;
+	cout << "Message: Enter the memory location to look at (hexadecimal format)." << endl;
+	
 	// the memory location the user input
 	int location;
 	
@@ -183,7 +191,7 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	location = (*microcontroller)->lookUpMemoryAddress();
 
 	// check if the input location is valid
-	if(location >= 0){
+	if(location != Microcontroller::memoryLocationInvalid){
 		// print out the value at the memory address
 		unsigned int value = (*microcontroller)->getMemoryValueAtLocation(location);
 		cout << "The value at location ";
@@ -197,6 +205,10 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 // Handler for Modify Memory option
 void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 
+	// display the message for user
+	cout << "Message: Modify memory." << endl;
+	cout << "Message: Enter the memory location to modify (hexadeciaml format)." << endl;
+	
 	// The input memory address
 	int location;
 
@@ -207,18 +219,19 @@ void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	if(location != Microcontroller::memoryLocationInvalid){
 		// print the old value
 		unsigned int oldValue = (*microcontroller)->getMemoryValueAtLocation(location);
-		cout << "Old value: ";
+		cout << "Message: Old value: ";
 		cout << hex << oldValue;
 		cout << endl;
 
-		// print the new prompt
+		// print the message
+		cout << "Message: Enter the new value (hexadecimal format)." << endl;
 		cout << "new? ";
 
 		// read the input value from user
 		unsigned int inputNewValue;
 		// validate input
 		while(!(cin >> hex >> inputNewValue)){
-			cerr << "Please input a valid hexadecimal integer!" << endl;
+			cerr << "Error: Please input a valid hexadecimal integer!" << endl;
 			cin.clear();
 			cin.ignore(1000, '\n');
 			cout << "news? ";
@@ -238,6 +251,9 @@ void optionModifyMemoryHandler(mcontroller::Microcontroller** microcontroller){
 // handler for the display all memory option
 void optionDisplayAllMemoryHandler(mcontroller::Microcontroller** microcontroller){
 
+	// print the message for user
+	cout << "Message: Display all memory." << endl;
+	
 	// the memory array
 	unsigned char* memory = (*microcontroller)->getMemory();
 
@@ -274,6 +290,9 @@ void optionDisplayAllMemoryHandler(mcontroller::Microcontroller** microcontrolle
 // handler for execute option
 void optionExecuteHandler(mcontroller::Microcontroller** microcontroller){
 
+	// print the message for user
+	cout << "Message: Execute from current PC" << endl;
+	
 	// execute the opcode
 	(*microcontroller)->execute();
 	
@@ -282,6 +301,10 @@ void optionExecuteHandler(mcontroller::Microcontroller** microcontroller){
 // handler for execute from point option
 void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller** microcontroller){
 
+	// display the message for user
+	cout << "Message: Execute from specific location." << endl;
+	cout << "Message: Enter the memory location to execute (hexadecimal format)." << endl;
+	
 	// input location from user
 	int location = (*microcontroller)->inputHexadecimal("location? ");
 
@@ -303,8 +326,8 @@ void executeOptionIfConnected(Microcontroller** microcontroller, optionHandler* 
 		// Not connected
 		// print the message to cerr
 		cerr << "Error: Not connected to any controller!" << endl;
-		cerr << "Type c to connect to a controller." << endl;
-		cerr << "Type h for help." << endl;
+		cerr << "Message: Type c to connect to a controller." << endl;
+		cerr << "Message: Type h for help." << endl;
 	} else {
 		// Connected
 		// execute the handler function

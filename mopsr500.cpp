@@ -12,7 +12,7 @@ namespace mcontroller {
 	// Constructor
 	MopsR500::MopsR500() : Microcontroller(1024){
 		// After init controller, display message for user
-		std::cout << "R500 connected!" << std::endl;
+		std::cout << "Message: R500 connected" << std::endl;
 		
 		// Reset the microcontroller ti clean state
 		this->reset();
@@ -35,7 +35,7 @@ namespace mcontroller {
 		this->initMemory(0);
 
 		// Response to the user that the controller is reset
-		std::cout << "Micrcontroller reset!" << std::endl;
+		std::cout << "Message: Micrcontroller reseted." << std::endl;
 	}
 
 	// execute the instruction coorecsponding to the opcode
