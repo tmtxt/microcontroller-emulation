@@ -16,7 +16,7 @@ namespace mcontroller {
 	// Constructor
 	Rotamola34HC22::Rotamola34HC22() : Microcontroller(512){
 		// print the message for user
-		cout << "34HC22 connected!" << endl;
+		cout << "Message: 34HC22 connected!" << endl;
 		
 		// After init the memory, reset the microcontroller
 		reset();
@@ -31,9 +31,9 @@ namespace mcontroller {
 	// get the status string
 	string Rotamola34HC22::getStatusString(){
 		stringstream stream;
-		stream << "Current Program Counter location: " << hex << this->getProgramCounter() << endl;
-		stream << "A register value: " << hex << (int)(this->getA()) << endl;
-		stream << "B register value: " << hex << (int)(this->getB());
+		stream << "Message: Current Program Counter location: " << hex << this->getProgramCounter() << endl;
+		stream << "Message: A register value: " << hex << (int)(this->getA()) << endl;
+		stream << "Message: B register value: " << hex << (int)(this->getB());
 		return stream.str();
 	}
 
@@ -44,7 +44,7 @@ namespace mcontroller {
 		this->setProgramCounter(509);
 
 		// Response to the user that the controller is reset
-		std::cout << "Micrcontroller reset!" << std::endl;
+		std::cout << "Message: Micrcontroller reset!" << std::endl;
 		
 	}
 
@@ -103,7 +103,7 @@ namespace mcontroller {
 			this->executeHalt(address);
 			break;
 		default:				// invalid opcode
-			cerr << "Invalid opcode!" << endl;
+			cerr << "Error: Invalid opcode!" << endl;
 			break;
 		}
 	}
@@ -255,6 +255,6 @@ namespace mcontroller {
 	// Execution stops and the PC is not incremented.
 	void Rotamola34HC22::executeHalt(int address){
 		// nothing here, just halt the execution
-		cout << "Execution halt!" << endl;
+		cout << "Message: Execution halt!" << endl;
 	}
 }

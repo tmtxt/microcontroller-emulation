@@ -16,7 +16,7 @@ namespace mcontroller {
 	// Constructor
 	MacrochipPIC32F42::MacrochipPIC32F42() : Microcontroller(1536){
 		// After init the microcontroller, print the message to user
-		std::cout << "PIC32F42 connected!" << std::endl;
+		std::cout << "Message: PIC32F42 connected!" << std::endl;
 		
 		// Reset the microcontroller to a clean state
 		this->reset();
@@ -30,8 +30,8 @@ namespace mcontroller {
 	// get the status string
 	string MacrochipPIC32F42::getStatusString(){
 		stringstream stream;
-		stream << "Current Program Counter location: " << hex << this->getProgramCounter() << endl;
-		stream << "W register value: " << hex << (int)(this->getW());
+		stream << "Message: Current Program Counter location: " << hex << this->getProgramCounter() << endl;
+		stream << "Message: W register value: " << hex << (int)(this->getW());
 		return stream.str();
 	}
 
@@ -43,6 +43,9 @@ namespace mcontroller {
 
 		// Set W to 0
 		this->setW(0);
+
+		// print the message
+		cout << "Message: PIC32F42 Reseted!" << endl;
 	}
 
 	// Getters
@@ -89,7 +92,7 @@ namespace mcontroller {
 			this->executeHalt(address);
 			break;
 		default:				// invalid opcode
-			cerr << "Invalid opcode!" << endl;
+			cerr << "Error: Invalid opcode!" << endl;
 			break;
 
 		}
@@ -211,7 +214,7 @@ namespace mcontroller {
 	// Execution stops and the PC is not incremented.
 	void MacrochipPIC32F42::executeHalt(int address){
 		// nothing here, just display a message for user
-		cout << "Execution halt!" << endl;
+		cout << "Message: Execution halt!" << endl;
 	}
 
 }

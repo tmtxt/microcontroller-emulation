@@ -134,16 +134,24 @@ char inputOption(){
 // Function optionErrorHandler()
 // just display the error for the user
 void optionErrorHandler(){
-	cout << "Wrong option!" << endl
-		 << "Type h for Help" << endl;
+	cerr << "Error: Wrong option!" << endl;
+	cout << "Message: Type h for Help." << endl;
 }
 
 // Function optionHelpHandler()
 // Display the help for user
 void optionHelpHandler(){
-	cout << "Help" << endl
-		 << "Connect c" << endl
-		 << "Display d" << endl;
+	cout << "Usage: Type in these options to execute." << endl;
+	cout << "c\tConnect to microcontroller." << endl;
+	cout << "d\tDisplay all memory." << endl;
+	cout << "e\tExecute from current PC." << endl;
+	cout << "g\tExecution from a specific location." << endl;
+	cout << "h\tDisplay help." << endl;
+	cout << "l\tLook at memory." << endl;
+	cout << "m\tModify memory." << endl;
+	cout << "r\tReset microcontroller." << endl;
+	cout << "s\tDisplay PC and registers." << endl;
+	cout << "q\tQuit the program." << endl;
 }
 
 // Handler for connect option
@@ -159,6 +167,7 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	
 	// display the prompt to ask user to enter microcontroller type
 	cout << "Message: Connect to Microcontroller" << endl;
+	cout << "Message: Disconnect other Microcontroller if aleady connected" << endl;
 	cout << "Message: Enter the type of microcontroller to connect" << endl;
 	cout << "type? ";
 

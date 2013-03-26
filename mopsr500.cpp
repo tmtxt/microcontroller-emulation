@@ -69,7 +69,7 @@ namespace mcontroller {
 			break;
 			
 		default:				// invalid opcode
-			cerr << "Invalid opcode!" << endl;
+			cerr << "Error: Invalid opcode!" << endl;
 			break;
 		}
 	}
@@ -166,7 +166,7 @@ namespace mcontroller {
 	// Execution stops and the PC is not incremented.
 	void MopsR500::executeHalt(int address){
 		// nothing to do here, just print out a message
-		cout << "Execution halt!" << endl;
+		cout << "Message: Execution halt!" << endl;
 	}
 	
 }
