@@ -83,7 +83,7 @@ namespace mcontroller {
 		// Validate that the location is out of memory array index
 		if((location < 0) || (location >= this->getMemorySize())){
 			// Display the error for user
-			cerr << "Invalid address!" << endl;
+			cerr << "Error: Invalid address!" << endl;
 			return Microcontroller::memoryLocationInvalid;
 		} else {
 			// Address valid, return the address location
@@ -101,7 +101,7 @@ namespace mcontroller {
 
 		// Read the location from user and ensure that user enter an hex int
 		while(!(cin >> hex >> location)){
-			cerr << "Please input a valid hexadecimal integer!" << endl;
+			cerr << "Message: Please input a valid hexadecimal integer!" << endl;
 			cin.clear();
 			cin.ignore(1000, '\n');
 			cout << prompt;
@@ -116,7 +116,7 @@ namespace mcontroller {
 	// get the status string
 	string Microcontroller::getStatusString(){
 		stringstream stream;
-		stream << "Current Program Counter location: " << hex << this->getProgramCounter();
+		stream << "Message: Current Program Counter location: " << hex << this->getProgramCounter();
 		return stream.str();
 	}
 	

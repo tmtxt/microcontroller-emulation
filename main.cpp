@@ -203,7 +203,7 @@ void optionLookAtMemoryHandler(mcontroller::Microcontroller** microcontroller){
 	if(location != Microcontroller::memoryLocationInvalid){
 		// print out the value at the memory address
 		unsigned int value = (*microcontroller)->getMemoryValueAtLocation(location);
-		cout << "The value at location ";
+		cout << "Message: The value at location ";
 		cout << hex << location;
 		cout << " is: ";
 		cout << hex << value;
