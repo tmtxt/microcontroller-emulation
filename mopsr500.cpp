@@ -86,22 +86,33 @@ namespace mcontroller {
 	// the fourth byte after the opcode.
 	void MopsR500::executeAddValueToMemory(int address){
 
-		// get the value to add
-		unsigned char valueToAdd = this->getMemoryValueAtLocation(address + 1);
+		// check if the memory is not out of range
+		if((address + 4) < this->getMemorySize()){
+			// get the value to add
+			unsigned char valueToAdd = this->getMemoryValueAtLocation(address + 1);
 
-		// get the low and high byte of the address
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
+			// get the low and high byte of the address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
 
-		// compute the destination address from the high and low byte of address
-		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+			// compute the destination address from the high and low byte of address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
 
-		// add the valueToAdd to destination
-		this->setMemoryValueAtLocation(destinationAddress,
-									   this->getMemoryValueAtLocation(destinationAddress) + valueToAdd);
+			// add the valueToAdd to destination
+			this->setMemoryValueAtLocation(destinationAddress,
+										   this->getMemoryValueAtLocation(destinationAddress) + valueToAdd);
 		
-		// move the program counter to the fourth byte after the opcode
-		this->setProgramCounter(address + 4);
+			// move the program counter to the fourth byte after the opcode
+			this->setProgramCounter(address + 4);
+
+			// finish
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory." << endl;
+			this->executeHalt(address);
+		}
+
+
 		
 	}
 
@@ -111,22 +122,31 @@ namespace mcontroller {
 	// function. The value should be subtracted from the memory this time.
 	void MopsR500::executeSubtractValueFromMemory(int address){
 
-		// get the value to subtract
-		unsigned char valueToSubtract = this->getMemoryValueAtLocation(address + 1);
+		if((address + 4) < this->getMemorySize()){
+			// get the value to subtract
+			unsigned char valueToSubtract = this->getMemoryValueAtLocation(address + 1);
 
-		// get the low and high byte of the address
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
+			// get the low and high byte of the address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
 
-		// compute the destination address from the high and low byte of address
-		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+			// compute the destination address from the high and low byte of address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
 
-		// subtract the valueToSubtract from destination
-		this->setMemoryValueAtLocation(destinationAddress,
-									   this->getMemoryValueAtLocation(destinationAddress) - valueToSubtract);
+			// subtract the valueToSubtract from destination
+			this->setMemoryValueAtLocation(destinationAddress,
+										   this->getMemoryValueAtLocation(destinationAddress) - valueToSubtract);
 
-		// move the program counter to the fourth byte after the opcode
-		this->setProgramCounter(address + 4);
+			// move the program counter to the fourth byte after the opcode
+			this->setProgramCounter(address + 4);
+
+			// finish
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory." << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x16
@@ -136,14 +156,30 @@ namespace mcontroller {
 	// points to that address.
 	void MopsR500::executeGoToAddress(int address){
 
-		// compute the address from the low and high byte
-		// the memory address can be determined by (high byte << 8) | low byte
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
-		int addressToGo = ((addressHighByte << 8) | addressLowByte);
+		if((address + 2) < this->getMemorySize()){
+			// compute the address from the low and high byte
+			// the memory address can be determined by (high byte << 8) | low byte
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
+			int addressToGo = ((addressHighByte << 8) | addressLowByte);
 
-		// set the program counter point to the new address
-		this->setProgramCounter(addressToGo);
+			// check if the address is valid
+			if(addressToGo >= 0 && addressToGo < this->getMemorySize()){
+				// set the program counter point to the new address
+				this->setProgramCounter(addressToGo);
+
+				cout << "Message: Execution completed." << endl;
+			} else {
+				cerr << "Error: Invalid memory address." << endl;
+				this->executeHalt(address);
+			}
+		
+
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory." << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x17
@@ -153,12 +189,29 @@ namespace mcontroller {
 	// value must be treated as a signed value, i.e.: 128 = -128).
 	void MopsR500::executeBranchRelative(int address){
 
-		// get the value from the next byte after the opcode and then add
-		// convert it to signed int
-		int valueToMove = (signed char)(this->getMemoryValueAtLocation(address + 1));
+		if((address + 1) < this->getMemorySize()){
+			
+			// get the value from the next byte after the opcode and then add
+			// convert it to signed int
+			int valueToMove = (signed char)(this->getMemoryValueAtLocation(address + 1));
 
-		// move the program counter to the new location
-		this->setProgramCounter(address + valueToMove);
+			if((address + valueToMove) >=0 && (address + valueToMove) < this->getMemorySize()){
+				
+				// move the program counter to the new location
+				this->setProgramCounter(address + valueToMove);
+
+				cout << "Message: Execution completed." << endl;
+			} else {
+				cerr << "Error: Invalid memory address." << endl;
+				this->executeHalt(address);
+			}
+			
+			
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory." << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0xFF
