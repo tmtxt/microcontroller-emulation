@@ -104,11 +104,21 @@ namespace mcontroller {
 	// register. The PC is set to the address of the second byte after the
 	// opcode.
 	void MacrochipPIC32F42::executeMoveValueToW(int address){
+
+		if((address + 2) < this->getMemorySize()){
+					
 		// set the new value for W
 		this->setW(this->getMemoryValueAtLocation(address + 1));
 
 		// set the program counter to the second byte after the opcode
 		this->setProgramCounter(address + 2);
+
+		cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x51
@@ -119,19 +129,35 @@ namespace mcontroller {
 	// register’s contents are written to this memory address. The PC is set to
 	// the address of the third byte after the opcode.
 	void MacrochipPIC32F42::executeMoveWToMemory(int address){
-		
-		// get the high byte and low byte address of the destination address
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
-		// compute the destination address
-		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+		if((address + 3) < this->getMemorySize()){
+					
+			// get the high byte and low byte address of the destination address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
-		// write the content of register W to destination address
-		this->setMemoryValueAtLocation(destinationAddress, this->getW());
+			// compute the destination address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
 
-		// set the program counter to the third byte after the opcode
-		this->setProgramCounter(address + 3);
+			if(destinationAddress >= 0 && destinationAddress < this->getMemorySize()){
+			
+				// write the content of register W to destination address
+				this->setMemoryValueAtLocation(destinationAddress, this->getW());
+
+				// set the program counter to the third byte after the opcode
+				this->setProgramCounter(address + 3);
+
+				cout << "Message: Execution completed." << endl;
+			} else {
+				cerr << "Error: Invalid memory address." << endl;
+				this->executeHalt(address);
+			}
+
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x5A
@@ -140,11 +166,21 @@ namespace mcontroller {
 	// register. The PC is set to the address of the second byte after the
 	// opcode.
 	void MacrochipPIC32F42::executeAddValueToW(int address){
-		// add value to W
-		this->setW(this->getW() + this->getMemoryValueAtLocation(address + 1));
+		
+		if((address + 2) < this->getMemorySize()){
+					
+			// add value to W
+			this->setW(this->getW() + this->getMemoryValueAtLocation(address + 1));
 
-		// set the program counter to the second byte after the opcode
-		this->setProgramCounter(address + 2);
+			// set the program counter to the second byte after the opcode
+			this->setProgramCounter(address + 2);
+
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x5B
@@ -153,11 +189,20 @@ namespace mcontroller {
 	// register. The PC is set to the address of the second byte after the
 	// opcode.
 	void MacrochipPIC32F42::executeSubtractValueFromW(int address){
-		// subtract value from w
-		this->setW(this->getW() - this->getMemoryValueAtLocation(address + 1));
 
-		// set the program counter to the second byte after the opcode
-		this->setProgramCounter(address + 2);
+		if((address + 2) < this->getMemorySize()){
+			// subtract value from w
+			this->setW(this->getW() - this->getMemoryValueAtLocation(address + 1));
+
+			// set the program counter to the second byte after the opcode
+			this->setProgramCounter(address + 2);
+
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x6E
@@ -167,15 +212,30 @@ namespace mcontroller {
 	// After execution, the PC points to that address.
 	void MacrochipPIC32F42::executeGoToAddress(int address){
 
-		// get the high byte and low byte address of the destination address
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
+		if((address + 2) < this->getMemorySize()){
+			// get the high byte and low byte address of the destination address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
-		// compute the destination address
-		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+			// compute the destination address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
 
-		// set the program counter to the destination address
-		this->setProgramCounter(destinationAddress);
+			if(destinationAddress >= 0 && destinationAddress < this->getMemorySize()){
+				
+				// set the program counter to the destination address
+				this->setProgramCounter(destinationAddress);
+
+				cout << "Message: Execution completed." << endl;
+			} else {
+				cerr << "Error: Invalid memory address." << endl;
+				this->executeHalt(address);
+			}
+			
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x70
@@ -188,25 +248,39 @@ namespace mcontroller {
 	// is set to equal the fourth block of memory after the opcode.
 	void MacrochipPIC32F42::executeBranchIfNotEqual(int address){
 
-		// the value to compare
-		unsigned char comparisonValue = this->getMemoryValueAtLocation(address + 1);
+		if((address + 4) < this->getMemorySize()){
+					
+			// the value to compare
+			unsigned char comparisonValue = this->getMemoryValueAtLocation(address + 1);
 		
-		// compare W to comparisonValue
-		if(comparisonValue == this->getW()){
-			// if equal, set the program counter to the 4 block of memory after
-			// the opcode
-			this->setProgramCounter(address + 4);
+			// compare W to comparisonValue
+			if(comparisonValue == this->getW()){
+				// if equal, set the program counter to the 4 block of memory after
+				// the opcode
+				this->setProgramCounter(address + 4);
+			} else {
+				// get the high byte and low byte address of the destination address
+				unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+				unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
+
+				// compute the destination address
+				int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+				if(destinationAddress >= 0 && destinationAddress < this->getMemorySize()){
+					
+					// set the program counter to the new address
+					this->setProgramCounter(destinationAddress);
+				} else {
+					cerr << "Error: Invalid memory address" << endl;
+					this->executeHalt(address);
+				}
+
+			}
 		} else {
-			// get the high byte and low byte address of the destination address
-			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
-			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
-
-			// compute the destination address
-			int destinationAddress = (addressHighByte << 8) | addressLowByte;
-
-			// set the program counter to the new address
-			this->setProgramCounter(destinationAddress);
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
 		}
+
 	}
 
 	// 0xFF
