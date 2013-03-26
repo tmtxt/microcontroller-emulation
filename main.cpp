@@ -55,10 +55,16 @@ int main(int argc, char *argv[])
 		// Check the userOption variable and the switch the user to the right function
 		switchOption(userOption, &microcontroller);
 
-		// Display a newline character, just for decoration
-		cout << endl;
+		if(userOption != 'q'){
+			// Display a newline character, just for decoration
+			cout << endl;
+		}
 		
 	} while (userOption != 'q');
+
+	// print the goodbye message
+	cout << "Quitting..." << endl;
+	cout << "Thank you for using my software." << endl;
 	
 	// End the program
 	return 0;
@@ -167,7 +173,7 @@ void optionConnectHandler(Microcontroller** microcontroller){
 	
 	// display the prompt to ask user to enter microcontroller type
 	cout << "Message: Connect to Microcontroller" << endl;
-	cout << "Message: Disconnect other Microcontroller if aleady connected" << endl;
+	cout << "Message: Auto disconnect other Microcontroller (if aleady connected)" << endl;
 	cout << "Message: Enter the type of microcontroller to connect" << endl;
 	cout << "type? ";
 
@@ -323,6 +329,7 @@ void optionExecuteFromSpecificLocationHandler(mcontroller::Microcontroller** mic
 
 // This function will query and display microcontroller status.
 void optionDisplayStatusHandler(mcontroller::Microcontroller** microcontroller){
+	cout << "Message: Display Microcontroller status" << endl;
 	cout << (*microcontroller)->getStatusString() << endl;
 }
 

@@ -69,7 +69,8 @@ namespace mcontroller {
 			break;
 			
 		default:				// invalid opcode
-			cerr << "Error: Invalid opcode!" << endl;
+			cerr << "Error: SIGOP. Invalid opcode. Program Counter = ";
+			cerr << hex << this->getProgramCounter() << endl;
 			break;
 		}
 	}
@@ -219,7 +220,7 @@ namespace mcontroller {
 	// Execution stops and the PC is not incremented.
 	void MopsR500::executeHalt(int address){
 		// nothing to do here, just print out a message
-		cout << "Message: Execution halt!" << endl;
+		cout << "Message: Execution halted!" << endl;
 	}
 	
 }

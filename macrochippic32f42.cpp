@@ -92,7 +92,8 @@ namespace mcontroller {
 			this->executeHalt(address);
 			break;
 		default:				// invalid opcode
-			cerr << "Error: Invalid opcode!" << endl;
+			cerr << "Error: SIGOP. Invalid opcode. Program Counter = ";
+			cerr << hex << this->getProgramCounter() << endl;
 			break;
 
 		}
@@ -258,6 +259,9 @@ namespace mcontroller {
 				// if equal, set the program counter to the 4 block of memory after
 				// the opcode
 				this->setProgramCounter(address + 4);
+
+				cout << "Message: Execution completed." << endl;
+				
 			} else {
 				// get the high byte and low byte address of the destination address
 				unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
@@ -270,6 +274,7 @@ namespace mcontroller {
 					
 					// set the program counter to the new address
 					this->setProgramCounter(destinationAddress);
+					cout << "Message: Execution completed." << endl;
 				} else {
 					cerr << "Error: Invalid memory address" << endl;
 					this->executeHalt(address);
@@ -288,7 +293,7 @@ namespace mcontroller {
 	// Execution stops and the PC is not incremented.
 	void MacrochipPIC32F42::executeHalt(int address){
 		// nothing here, just display a message for user
-		cout << "Message: Execution halt!" << endl;
+		cout << "Message: Execution halted!" << endl;
 	}
 
 }

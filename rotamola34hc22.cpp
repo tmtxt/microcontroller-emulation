@@ -103,7 +103,8 @@ namespace mcontroller {
 			this->executeHalt(address);
 			break;
 		default:				// invalid opcode
-			cerr << "Error: Invalid opcode!" << endl;
+			cerr << "Error: SIGOP. Invalid opcode. Program Counter = ";
+			cerr << hex << this->getProgramCounter() << endl;
 			break;
 		}
 	}
@@ -116,19 +117,35 @@ namespace mcontroller {
 	// | low byte. The contents of the A register are moved to this memory
 	// address. The PC is set to the third byte after the opcode.
 	void Rotamola34HC22::executeMoveAToMemory(int address){
-		
-		// get the high byte and low byte address of the destination address
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
-		// compute the destination address
-		int destinationAddress = (addressHighByte << 8) | addressLowByte;
+		if((address + 3) < this->getMemorySize()){
+					
+			// get the high byte and low byte address of the destination address
+			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
-		// move the content of A to the destination address in memory
-		this->setMemoryValueAtLocation(destinationAddress, this->getA());
+			// compute the destination address
+			int destinationAddress = (addressHighByte << 8) | addressLowByte;
 
-		// set the program counter to the thrid byte after the opcode
-		this->setProgramCounter(address + 3);
+			if(destinationAddress >= 0 && destinationAddress < this->getMemorySize()){
+			
+				// move the content of A to the destination address in memory
+				this->setMemoryValueAtLocation(destinationAddress, this->getA());
+
+				// set the program counter to the thrid byte after the opcode
+				this->setProgramCounter(address + 3);
+
+				cout << "Message: Execution completed." << endl;
+			} else {
+				cerr << "Error: Invalid memory address." << endl;
+				this->executeHalt(address);
+			}
+
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x37
@@ -136,11 +153,20 @@ namespace mcontroller {
 	// The first byte after the opcode is the value to load into the A register.
 	// The PC is set to the second byte after the opcode.
 	void Rotamola34HC22::executeLoadAWithValue(int address){
-		// load value from the first byte after the opcode to A
-		this->setA(this->getMemoryValueAtLocation(address + 1));
 
-		// set the program counter the the second byte after opcode
-		this->setProgramCounter(address + 2);
+		if((address + 2) < this->getMemorySize()){
+			// load value from the first byte after the opcode to A
+			this->setA(this->getMemoryValueAtLocation(address + 1));
+
+			// set the program counter the the second byte after opcode
+			this->setProgramCounter(address + 2);
+
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x38
@@ -148,11 +174,20 @@ namespace mcontroller {
 	// The first byte after the opcode is the value to load into the B register.
 	// The PC is set to the second byte after the opcode.
 	void Rotamola34HC22::executeLoadBWithValue(int address){
-		// load value from the first byte after the opcode to B
-		this->setB(this->getMemoryValueAtLocation(address + 1));
 
-		// set the program counter the the second byte after opcode
-		this->setProgramCounter(address + 2);
+		if((address + 2) < this->getMemorySize()){
+			// load value from the first byte after the opcode to B
+			this->setB(this->getMemoryValueAtLocation(address + 1));
+
+			// set the program counter the the second byte after opcode
+			this->setProgramCounter(address + 2);
+
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x53
@@ -161,11 +196,20 @@ namespace mcontroller {
 	// into A. The value of the PC is incremented, so it points to the next byte
 	// after the opcode.
 	void Rotamola34HC22::executeIncrementRegisterA(int address){
-		// increare the value of A
-		this->setA(this->getA() + 1);
 
-		// move the program counter to the next byte
-		this->setProgramCounter(address);
+		if((address + 1) < this->getMemorySize()){
+			// increare the value of A
+			this->setA(this->getA() + 1);
+
+			// move the program counter to the next byte
+			this->setProgramCounter(address);
+
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
 	}
 
 	// 0x5A
@@ -174,30 +218,8 @@ namespace mcontroller {
 	// address. The second byte after the opcode represents the low byte of the
 	// memory address. The PC is set to this memory address.
 	void Rotamola34HC22::executeBranchAlways(int address){
-		
-		// get the high byte and low byte address of the destination address
-		unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
-		unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
 
-		// compute the destination address
-		int destinationAddress = (addressHighByte << 8) | addressLowByte;
-
-		// set the program counter to the new address
-		this->setProgramCounter(destinationAddress);
-
-	}
-
-	// 0x5B
-	// Branch if A < B
-	// The first byte after the opcode represents the high byte of the memory
-	// address. The second byte after the opcode represents the low byte of the
-	// memory address. If the content of A is less than B, the PC is set to this
-	// memory address. Otherwise, the PC is set to the third byte after the
-	// opcode.
-	void Rotamola34HC22::executeBranchIfALessThanB(int address){
-		// compare the value of A and B
-		if(this->getA() < this->getB()){
-
+		if((address + 2) < this->getMemorySize()){
 			// get the high byte and low byte address of the destination address
 			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
 			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
@@ -207,13 +229,62 @@ namespace mcontroller {
 
 			// set the program counter to the new address
 			this->setProgramCounter(destinationAddress);
+
+			cout << "Message: Execution completed." << endl;
+		} else {
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
+		}
+
+	}
+
+	// 0x5B
+	// Branch if A < B
+	// The first byte after the opcode represents the high byte of the memory
+	// address. The second byte after the opcode represents the low byte of the
+	// Memory address. If the content of A is less than B, the PC is set to this
+	// memory address. Otherwise, the PC is set to the third byte after the
+	// opcode.
+	void Rotamola34HC22::executeBranchIfALessThanB(int address){
+
+		if((address + 3) < this->getMemorySize()){
+			
+			// compare the value of A and B
+			if(this->getA() < this->getB()){
+
+				// get the high byte and low byte address of the destination address
+				unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 1);
+				unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 2);
+
+				// compute the destination address
+				int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+				if(destinationAddress >= 0 && destinationAddress < this->getMemorySize()){
+					
+
+
+					// set the program counter to the new address
+					this->setProgramCounter(destinationAddress);
+
+					cout << "Message: Execution completed." << endl;
+
+				} else {
+					cout << "Error: Invalid memory address." << endl;
+					this->executeHalt(address);
+				}
+			
+			} else {
+			
+				// set the program counter to the third byte after the opcode
+				this->setProgramCounter(address + 3);
+				cout << "Message: Execution completed." << endl;
+			}
 			
 		} else {
-			
-			// set the program counter to the third byte after the opcode
-			this->setProgramCounter(address + 1);
-			
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
 		}
+
 	}
 
 	// 0x5D
@@ -226,28 +297,45 @@ namespace mcontroller {
 	// after the opcode.
 	void Rotamola34HC22::executeBranchIfLessThanA(int address){
 
-		// get the value to compare to A
-		unsigned char comparisonValue = this->getMemoryValueAtLocation(address + 1);
-
-		// compare A and comparisonValue
-		if(comparisonValue < this->getA()){
-
-			// get the high byte and low byte address of the destination address
-			unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
-			unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
-
-			// compute the destination address
-			int destinationAddress = (addressHighByte << 8) | addressLowByte;
-
-			// set the program counter to the new address
-			this->setProgramCounter(destinationAddress);
+		if((address + 4) < this->getMemorySize()){
 			
+			// get the value to compare to A
+			unsigned char comparisonValue = this->getMemoryValueAtLocation(address + 1);
+
+			// compare A and comparisonValue
+			if(comparisonValue < this->getA()){
+
+				// get the high byte and low byte address of the destination address
+				unsigned char addressHighByte = this->getMemoryValueAtLocation(address + 2);
+				unsigned char addressLowByte = this->getMemoryValueAtLocation(address + 3);
+
+				// compute the destination address
+				int destinationAddress = (addressHighByte << 8) | addressLowByte;
+
+				if(destinationAddress >=0 && destinationAddress < this->getMemorySize()){
+					
+					// set the program counter to the new address
+					this->setProgramCounter(destinationAddress);
+					cout << "Message: Execution completed." << endl;
+				} else {
+					cout << "Error: Invalid memory address." << endl;
+					this->executeHalt(address);
+				}
+
+			
+			} else {
+
+				// set the program counter to the the fourth byte after the opcode
+				this->setProgramCounter(address + 4);
+
+				cout << "Message: Execution completed." << endl;
+			
+			}
 		} else {
-
-			// set the program counter to the the fourth byte after the opcode
-			this->setProgramCounter(address + 4);
-			
+			cerr << "Error: SIGWEED. Program executed past top of memory" << endl;
+			this->executeHalt(address);
 		}
+
 	}
 
 	// 0x64
@@ -255,6 +343,6 @@ namespace mcontroller {
 	// Execution stops and the PC is not incremented.
 	void Rotamola34HC22::executeHalt(int address){
 		// nothing here, just halt the execution
-		cout << "Message: Execution halt!" << endl;
+		cout << "Message: Execution halted!" << endl;
 	}
 }
