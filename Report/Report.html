@@ -1,0 +1,55 @@
+<html>
+  <head>
+	<title>Microcontroller Emulation report</title>
+  </head>
+  <body>
+
+	<h1 id='introduction'>Introduction</h1>
+
+	<p><strong>Title</strong>: Microcontroller Emulation</p>
+
+	<p><strong>Assignment No</strong>: COSC2131 - Programming Using C++ - Assignment 1 - 2013A</p>
+
+	<p><strong>Student Name</strong>: Tran Xuan Truong</p>
+
+	<p><strong>Student ID</strong>: S3393320</p>
+
+	<p><strong>Lecturer</strong>: Mr Barend Scholtus &amp; Mr Kevin Jackson</p>
+
+	<h1 id='how_to_buildinstall'>How to build/install</h1>
+
+	<p>To build the program, simply run the <strong>make</strong> command in the program directory.</p>
+
+	<p>To run the program after build, run the output file <strong>main</strong>.</p>
+
+	<p>To clean all the output files, run the command <strong>make clean</strong>.</p>
+
+	<h1 id='implementation'>Implementation</h1>
+
+	<h2 id='class_diagram'>Class diagram</h2>
+
+	<p><img src="class_diagram.png" /></p>
+
+	<h2 id='class_description'>Class description</h2>
+
+	<h3 id='microcontroller_class'>Microcontroller class</h3>
+
+	<p>The base class for all microcontroller. All other microcontroller must extend this class.</p>
+
+	<h3 id='mopsr500_rotamola34hc22_and_macrochippic32f42_classes'>MopsR500, Rotamola34HC22 and MacrochipPIC32F42 classes</h3>
+
+	<p>Specific microcontroller classes. They all extend the base class Micrcontroller. All of them have to override the reset(), execute(), executeFromLocation() and getStatusString() functions in Microcontroller class. They have their additional executeXXX() functions to perform the appropriate opcode. Moreover, there is also a static function create() in those classes. What this function does is simply just return a new instance of that microcontroller class. More precisely, it returns a Microcontroller* pointer which points to a new object of that class. I implement this function for using with the MicrocontrollerFactory class below.</p>
+
+	<h3 id='microcontrollerfactory_class'>MicrocontrollerFactory class</h3>
+
+	<p>This class handles the creation of specific microcontroller class. It contains a map with the key is the string represents the type of microcontroller and the value is the pointer to the static function create() in that microcontroller class (the create() function I have mentioned above).</p>
+
+	<p>Later, when there is more microcontroller class, the only place that we have to edit the code is in the constructor of this MicrocontrollerFactory class. We will need to call the addMicrocontroller() function of this class. There is no need to edit the source code in other place because this class handles it automatically.</p>
+
+	<p>To create a new microcontroller, call the createMicrocontroller() function of this class and pass the microcontroller name as the argument. The return type is a Microcontroller* pointer to the newly created object.</p>
+
+	<h1 id='extra_features'>Extra features</h1>
+
+	<p>I implemented the first requirement of extra feature section, that is the extensibility. To do this, I used one extra class MicrocontrollerFactory which I haved mentioned before.</p>
+  </body>
+</html>
