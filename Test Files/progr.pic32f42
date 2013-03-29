@@ -1,0 +1,38 @@
+c pic32f42  # connect to a Mops R500
+s	    # check PC and register W (PC=0, W=0)
+m 01 50	    # MOVE
+m 02 07     # 7 TO W
+m 03 51	    # MOVE
+m 04 01	    # W
+m 05 f0	    # TO 0x1f0
+m 06 5a	    # ADD
+m 07 02	    # 2 TO W
+m 08 ff	    # program halt
+e	    # execute (SIGOP)
+g 01	    # go to and execute
+s	    # check PC and register W (PC=8, W=9)
+d	    # display (1f0=7)
+m 08 5b	    # replace halt opcode with SUBTRACT
+m 09 03	    # 3 FROM W
+m 0a 6e	    # BRANCH
+m 0b 01	    # ALWAYS 
+m 0c f1	    # TO 1f1
+m 1f1 ff    # program halt
+e	    # execute
+s	    # check PC and register W (PC=1f1, W=6) 
+d	    # display (1f0=7, 1f1=ff)
+m 1f1 70    # BRANCH
+m 1f2 05    # IF VALUE NOT EQUAL TO W (5<6)
+m 1f3 02    # THEN GO
+m 1f4 f1    # TO 2f1
+m 1f5 ff    # program halt
+m 2f1 ff    # program halt
+e	    # execute
+s	    # display PC and register (PC=2f1, W=6)
+m 1f2 06    # MODIFY 1f2 to 06 (now value 6 equal to W)
+g 1f1	    # go and execute
+s	    # check PC and register (PC=1f5, W=6)
+d	    # display
+>		#
+q           # quit program
+

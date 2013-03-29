@@ -1,0 +1,53 @@
+c 34hc22    # connect to a Mops R500
+m 01 37     # LOAD A
+m 02 02     # WITH 2
+m 03 38     # LOAD B
+m 04 07     # WITH 7
+m 05 0c     # MOVE A (A=2)
+m 06 01     # TO 1f1
+m 07 f1     # 
+m 08 64     # program halt
+e           # execute (SIGOP)
+g 01        # go and execute
+s           # check PC and registers (PC=8, A=2, B=7)
+d	    # display (1f1=2)
+m 08 53     # replace halt opcode with INCREMENT A
+m 09 64     # program halt
+e           # execute
+s           # check PC and registers (PC=9, A=3, B=7)
+m 09 5a     # replace halt opcode with BRANCH
+m 0a 01     # ALWAYS
+m 0b f2     # TO 1f2
+m 1f2 5b    # BRANCH
+m 1f3 01    # TO 1e1
+m 1f4 e1    # IF A<B (3<7)
+m 1e1 64    # program halt
+e           # execute
+s           # check PC and registers (PC=1e1, A=3, B=7)
+d           # display
+m 1e1 37    # replace halt opcode with LOAD A
+m 1e2 08    # WITH 8 (now A>B)
+m 1e3 5b    # BRANCH
+m 1e4 01    # TO 1fa
+m 1e5 fa    # IF (A<B) (but 8>7)
+m 1e6 ff    # program halt
+e           # execute
+s           # check PC and registers (PC=1e6, A=8, B=7)
+d           # display
+m 1e6 5d    # replace halt opcode with BRANCH
+m 1e7 05    # TO 1d1
+m 1e8 01    # IF 5<A (5<8)
+m 1e9 d1    # 
+m 1d1 64    # program halt
+e           # execute
+s           # check PC and registers (PC=1d1, A=8, B=7)
+m 1d1 5d    # replace halt opcode with BRANCH
+m 1d2 09    # TO 1c1
+m 1d3 01    # IF 9<A (but 9>A=8)
+m 1d4 c1    #
+m 1d5 64    # program halt
+e           # execute
+s           # check PC and registers (PC=1d5, A=8, B=7)
+d           # display
+q           # quit program
+

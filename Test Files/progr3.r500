@@ -1,0 +1,29 @@
+c r500    # connect to a Mops R500
+m 08 0a   # ADD
+m 09 05   # 5
+m 0a 03   # TO 0x03f0
+m 0b f0
+m 0c ff   # HALT
+m 18 13   # SUB
+m 19 05   # 5
+m 1a 03   # FROM 0x03f8
+m 1b f8
+m 1c ff   # HALT
+d         # display memory
+e         # execute (but SIGOP)
+s         # check PC
+m 00 16   # BRANCH ABS.
+m 01 00   # 0x0008 (to our ADD op)
+m 02 08
+d         # display
+g 0       # execute (now success)
+s         # check PC
+d         # display (03f0=05)
+m 0c 17   # replace HALT with
+m 0d 0c   # BRANCH REL. (to SUB op)
+d         # display memory
+g 0       # execute (success)
+s         # check PC
+d         # display (03f0=0a, 03f8=fb)
+q         # quit program
+
