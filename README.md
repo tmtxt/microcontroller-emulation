@@ -9,16 +9,12 @@
 Clone the repo on github
 [Microcontroller Emulation](https://github.com/tommytxtruong/microcontroller-emulation)
 
-{% highlight sh %}
-$ git clone https://github.com/tommytxtruong/microcontroller-emulation.git
-{% endhighlight %}
+    $ git clone https://github.com/tommytxtruong/microcontroller-emulation.git
 
 To compile, simply run make
 
-{% highlight sh %}
-$ cd microcontroller-emulation
-$ make
-{% endhighlight %}
+    $ cd microcontroller-emulation
+    $ make
 
 To execute program, run the output file **main**
 
