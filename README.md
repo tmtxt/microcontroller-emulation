@@ -1,3 +1,8 @@
+# Information
+
+Read the full article information about this project at my blog
+<http://tommytxtruong.github.com/2013/03/30/microcontroller-emulation-in-cpp/>
+
 # Requirements
 
 * unix-based system: to run makefile
