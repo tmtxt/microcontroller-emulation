@@ -1,0 +1,15 @@
+- This project contains 13 files
+		+ makefile
+		+ main.h
+		+ main.cpp
+		+ microcontroller.h
+		+ microcontroller.cpp
+		+ microcontrollerfactory.h
+		+ microcontrollerfactory.cpp
+		+ mopsr500.h
+		+ mopsr500.cpp
+		+ rotamola34hc22.h
+		+ rotamola34hc22.cpp
+		+ macrochippic32f42.h
+		+ macrochippic32f42.cpp
+
