@@ -1,7 +1,7 @@
 # Information
 
 Read the full article information about this project at my blog
-<http://tommytxtruong.github.com/2013/03/30/microcontroller-emulation-in-cpp/>
+<http://truongtx.me/2013/03/30/microcontroller-emulation-in-cpp/>
 
 # Requirements
 
@@ -14,7 +14,7 @@ Read the full article information about this project at my blog
 Clone the repo on github
 [Microcontroller Emulation](https://github.com/tommytxtruong/microcontroller-emulation)
 
-    $ git clone https://github.com/tommytxtruong/microcontroller-emulation.git
+    $ git clone https://github.com/tmtxt/microcontroller-emulation.git
 
 To compile, simply run make
 
